@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- Тег meta для указания кодировки -->
+  <meta charset="utf-8">
+  <title>Water Skiing</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<script type="text/template" id="teamTemplate">
+		<span><%= name %></span> <button class="edit">Edit</button> <button class="delete">Delete</button>
+	</script>
+
+
+	<h1>Teams</h1>
+
+	<form action="" id="addTeam">
+		<input type="text" placeholder="Team Name">
+		<input type="submit" value="Add Team">
+	</form>
+
+	<div class="teams">
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
