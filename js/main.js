@@ -96,13 +96,14 @@ $(function () {
 		},
 
 		events: {
-			'click .edit': 'editTeam',
-			'click .delete': 'destroy'
+			'change .teamName': 'editTeam',
+			'click .deleteTeam': 'destroy'
 		},
 
 		editTeam: function () {
-			var newName = prompt('New team name:', this.model.get('name'));
+			var newName = $(this.el).find('.teamName').val();
 			this.model.setName(newName);
+			this.render();
 		},
 
 		destroy: function () {
@@ -172,4 +173,8 @@ $(function () {
 	$('.teams').html(teamsView.render().el);
 
 	var addTeamView = new App.Views.AddTeam({collection: teams});
+	
+	window.onbeforeunload = function() {
+        return "Вы уверены, что хотите покинуть страницу? Все текущие данные будут потеряны!";
+    }
 });

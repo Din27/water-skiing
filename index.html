@@ -7,15 +7,15 @@
 </head>
 <body>
 	<script type="text/template" id="teamTemplate">
-		<span><%= name %></span> <button class="edit">Редактировать</button> <button class="delete">Удалить</button>
+		<input type="text" class="teamName" value="<%= name %>"/></span> <button class="deleteTeam">Удалить</button>
 	</script>
 
 
 	<h1>Команды</h1>
 
-	<form action="" id="addTask">
-		<input type="text" placeholder="Название команды">
-		<input type="submit" value="Добавить команду">
+	<form action="" id="addTeam">
+		<input type="text" placeholder="Название команды"/>
+		<input type="submit" value="Добавить команду"/>
 	</form>
 
 	<div class="teams">
