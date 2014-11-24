@@ -13,7 +13,7 @@ $(function() {
 			e.preventDefault();
 
 			var newTeamName = $(e.currentTarget).find('input[type=text]').val();
-			var newTeam = new App.Models.Team({name: newTeamName}, {validate: true});
+			var newTeam = new App.Model.Team({name: newTeamName}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
 
 			console.log('Команда "' + newTeamName + '" добавлена');
