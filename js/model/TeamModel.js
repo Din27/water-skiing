@@ -7,18 +7,18 @@ $(function () {
 		initialize: function () {
 			// valid case
 			this.on("change:name", function (){
-	            console.log('Name changed to "' + this.getName() + '"');
+	            console.log('Имя команды изменено на "' + this.getName() + '"');
 	        }); 
 
 			// invalid case
 	        this.on("invalid", function (model, error) {
-	            console.log('Validation error: ' + error);
+	            console.log('Ошибка валидации: ' + error);
 	        });
 		},
 
 		validate: function (attrs) {
 			if (!$.trim(attrs.name)) {
-				return 'Teaem name should not be empty'; 
+				return 'Имя команды не должно быть пустым'; 
 			}
 		},
 

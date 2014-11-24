@@ -16,7 +16,7 @@ $(function() {
 			var newTeam = new App.Model.Team({name: newTeamName}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
 
-			console.log('Команда "' + newTeamName + '" добавлена');
+			console.log('РљРѕРјР°РЅРґР° "' + newTeamName + '" РґРѕР±Р°РІР»РµРЅР°');
 			console.log(newTeam);
 		}
 	})
