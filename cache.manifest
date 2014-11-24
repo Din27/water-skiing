@@ -1,3 +1,16 @@
 CACHE MANIFEST
 # Cache Manifest version 1
-*
+index.html
+js/lib/backbone.js
+js/lib/jquery.js
+js/lib/underscore.js
+js/AppModules.js
+js/AppStart.js
+js/router/Router.js
+js/model/TeamModel.js
+js/collection/TeamCollection.js
+js/view/TeamAddView.js
+js/view/TeamCollectionView.js
+js/view/TeamView.js
+css/style.css
+img/apple-touch-icon.png
