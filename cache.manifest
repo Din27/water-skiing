@@ -1,7 +1,8 @@
 CACHE MANIFEST
-# Cache Manifest version 2
+# Cache Manifest version 3
 index.html
 js/lib/backbone.js
+js/lib/backbone.localStorage.js
 js/lib/jquery.js
 js/lib/underscore.js
 js/AppModules.js
