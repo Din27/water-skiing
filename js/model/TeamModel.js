@@ -6,8 +6,8 @@ $(function () {
 
 		initialize: function () {
 			// valid case
-			this.on("change:name", function (){
-	            console.log('Имя команды изменено на "' + this.getName() + '"');
+			this.on("change", function (){
+	            this.save();
 	        }); 
 
 			// invalid case

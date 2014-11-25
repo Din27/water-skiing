@@ -2,17 +2,8 @@ $(function () {
 	new App.Router();
 	Backbone.history.start();
 
-	window.teams = new App.Collection.Team([
-		{
-			name: 'Украина'
-		}, 
-		{
-			name: 'Франция'
-		}, 
-		{
-			name: 'Швейцария'
-		}
-	], {validate: true});
+	window.teams = new App.Collection.Team();
+	window.teams.fetch();
 
 	var teamsView = new App.View.TeamCollection({collection: teams});
 	$('.teams').html(teamsView.render().el);
