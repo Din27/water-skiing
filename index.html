@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html manifest="cache.manifest">
+<!--TODO uncomment cache manifest and add new files to it-->
+<html> <!--manifest="cache.manifest"-->
 <head>
 	<title>Water Skiing</title>
 	
@@ -14,14 +15,18 @@
 	<script src="js/lib/underscore.js"></script>
 	<script src="js/lib/backbone.js"></script>
 	<script src="js/lib/backbone.localStorage.js"></script>
-	
+
 	<script src="js/AppModules.js"></script>
 	<script src="js/router/Router.js"></script>
 	<script src="js/model/TeamModel.js"></script>
+	<script src="js/model/PlayerModel.js"></script>
 	<script src="js/view/TeamView.js"></script>
 	<script src="js/collection/TeamCollection.js"></script>
+	<script src="js/collection/PlayerCollection.js"></script>
 	<script src="js/view/TeamCollectionView.js"></script>
 	<script src="js/view/TeamAddView.js"></script>
+	<script src="js/view/PlayerView.js"></script>
+	<script src="js/view/PlayerCollectionView.js"></script>
 	<script src="js/AppStart.js"></script>
 </head>
 <body ontouchmove="BlockMove(event);" >
@@ -35,6 +40,14 @@
 	<!-- TODO put to separate tmpl file -->
 	<script type="text/template" id="teamTemplate">
 		<input type="text" class="teamName" value="<%= name %>"/><button class="deleteTeam">Удалить</button>
+	</script>
+
+	<script type="text/template" id="playerTemplate">
+		<input type="text" class="playerName" value="<%= name %>"/>
+		<select class="playerGender">
+			<option value="M" <% if (gender === "M") {%>selected<%}%>>M</option>
+			<option value="F" <% if (gender === "F") {%>selected<%}%>>F</option>
+		</select>
 	</script>
 
 	<h1>Команды</h1>

@@ -15,10 +15,11 @@ $(function() {
 			var newTeamName = $(e.currentTarget).find('input[type=text]').val();
 			var newTeam = new App.Model.Team({name: newTeamName}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
-			newTeam.save();
-
-			console.log('Команда "' + newTeamName + '" добавлена');
-			console.log(newTeam);
+			newTeam.save(null, {success: function() {
+				console.log('Команда "' + newTeamName + '" сохранена');
+			}, error: function() {
+				console.log('Команда "' + newTeamName + '" не сохранена');
+			}});
 		}
 	})
 });
