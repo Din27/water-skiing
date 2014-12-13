@@ -1,6 +1,6 @@
 $(function () {
 	App.View.PlayerCollection = Backbone.View.extend({
-		tagName: 'ul',
+		tagName: 'tbody',
 
 		initialize: function () {
 			this.collection.on('add', this.addOne, this);

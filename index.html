@@ -39,15 +39,28 @@
 
 	<!-- TODO put to separate tmpl file -->
 	<script type="text/template" id="teamTemplate">
-		<input type="text" class="teamName" value="<%= name %>"/><button class="deleteTeam">Удалить</button>
+		<hr/>
+		<table class="team">
+			<caption><input type="text" class="teamName" value="<%= name %>"/><button class="deleteTeam">x</button></caption>
+			<thead>
+				<tr>
+					<th class="colName">Имя</th>
+					<th class="colGender">Пол</th>
+				</tr>
+			</thead>
+		</table>
 	</script>
 
 	<script type="text/template" id="playerTemplate">
-		<input type="text" class="playerName" value="<%= name %>"/>
-		<select class="playerGender">
-			<option value="M" <% if (gender === "M") {%>selected<%}%>>М</option>
-			<option value="F" <% if (gender === "F") {%>selected<%}%>>Ж</option>
-		</select>
+		<td>
+			<input type="text" class="playerName colName" value="<%= name %>"/>
+		</td>
+		<td>
+			<select class="playerGender colGender">
+				<option value="M" <% if (gender === "M") {%>selected<%}%>>М</option>
+				<option value="F" <% if (gender === "F") {%>selected<%}%>>Ж</option>
+			</select>
+		</td>
 	</script>
 
 	<h1>Команды</h1>

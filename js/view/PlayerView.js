@@ -5,8 +5,8 @@ $(function () {
 			this.model.on('destroy', this.remove, this);
 		},
 
-		tagName: 'li',
-		
+		tagName: 'tr',
+
 		template: template('playerTemplate'),
 
 		render: function () {

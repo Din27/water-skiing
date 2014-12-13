@@ -12,10 +12,14 @@ $(function () {
 		
 		template: template('teamTemplate'),
 
+		_selectors: {
+			teamTable: ".team"
+		},
+
 		render: function () {
 			var template = this.template(this.model.toJSON());
 			this.$el.html(template);
-			this.$el.append(this.playerCollectionView.render().el);
+			this.$el.find(this._selectors.teamTable).append(this.playerCollectionView.render().el);
 			return this;
 		},
 

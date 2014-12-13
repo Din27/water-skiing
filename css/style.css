@@ -1,3 +1,29 @@
+/** {*/
+	/*margin: 0;*/
+	/*padding: 0;*/
+/*}*/
+
 p {
 	color: #005500;
 }
+
+ul, li {
+	display: block;
+}
+
+.team {
+	/*border: black solid 1px;*/
+	margin-bottom: 10px;
+}
+
+.team caption {
+	align: left;
+}
+
+/*.team .colName {*/
+	/*width: 180px;*/
+/*}*/
+
+/*.team .colGender {*/
+	/*width: 40px;*/
+/*}*/
