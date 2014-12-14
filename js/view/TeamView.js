@@ -13,7 +13,8 @@ $(function () {
 		template: template('teamTemplate'),
 
 		_selectors: {
-			teamTable: ".team"
+			teamTable: ".js-team",
+			teamName: ".js-team-name"
 		},
 
 		render: function () {
@@ -29,12 +30,12 @@ $(function () {
 		},
 
 		events: {
-			'change .teamName': 'editTeam',
-			'click .deleteTeam': 'destroy'
+			'change .js-team-name': 'editTeamName',
+			'click .js-team-delete': 'destroy'
 		},
 
-		editTeam: function () {
-			var newName = $(this.el).find('.teamName').val();
+		editTeamName: function () {
+			var newName = $(this.el).find(this._selectors.teamName).val();
 			this.model.setName(newName);
 			// we need an explicit rendering here because if validation does not pass, than model will not be changed, a render will not be run
 			this.render();

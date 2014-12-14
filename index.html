@@ -17,6 +17,7 @@
 	<script src="js/lib/backbone.localStorage.js"></script>
 
 	<script src="js/AppModules.js"></script>
+	<script src="js/other/SlalomData.js"></script>
 	<script src="js/router/Router.js"></script>
 	<script src="js/model/TeamModel.js"></script>
 	<script src="js/model/PlayerModel.js"></script>
@@ -40,12 +41,15 @@
 	<!-- TODO put to separate tmpl file -->
 	<script type="text/template" id="teamTemplate">
 		<hr/>
-		<table class="team">
-			<caption><input type="text" class="teamName" value="<%= name %>"/><button class="deleteTeam">x</button></caption>
+		<table class="team js-team">
+			<caption><input type="text" class="team-name js-team-name" value="<%= name %>"/><button class="team-delete js-team-delete">x</button></caption>
 			<thead>
 				<tr>
-					<th class="colName">Имя</th>
-					<th class="colGender">Пол</th>
+					<th>Имя</th>
+					<th>Пол</th>
+					<th colspan="2">Слалом</th>
+					<th colspan="2">Фигурное катание</th>
+					<th colspan="2">Трамплин</th>
 				</tr>
 			</thead>
 		</table>
@@ -53,19 +57,52 @@
 
 	<script type="text/template" id="playerTemplate">
 		<td>
-			<input type="text" class="playerName colName" value="<%= name %>"/>
+			<input type="text" class="player-name js-player-name" value="<%= name %>"/>
 		</td>
 		<td>
-			<select class="playerGender colGender">
+			<select class="player-gender js-player-gender">
 				<option value="M" <% if (gender === "M") {%>selected<%}%>>М</option>
 				<option value="F" <% if (gender === "F") {%>selected<%}%>>Ж</option>
 			</select>
 		</td>
+		<!--slalom-->
+		<td>
+			<select class="player-slalom-buoys js-player-slalom-buoys">
+				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
+				<!--todo change . with , ?-->
+				<option value="{% i %}" <%= (i === slalomBuoysIndex) ? 'selected' : '' %>><%= window.SLALOM_BUOYS[i].toFixed(2) %></option>
+				<% } %>
+			</select>
+			/
+			<select class="player-slalom-track js-player-slalom-track">
+				<% for (var i = 0; i < window.SLALOM_TRACKS.MEN.length; i++) { %>
+				<option value="{% i %}" <%= (i === slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
+				<% } %>
+			</select>
+		</td>
+		<td>
+			<input type="text" class="player-slalom-score js-player-slalom-score" value="<%= slalomScore %>" disabled/>
+		</td>
+		<!--tricks-->
+		<td>
+			<input type="text" class="player-tricks-result js-player-tricks-result" value="<%= tricksResult %>"/>
+		</td>
+		<td>
+			<input type="text" class="player-tricks-score js-player-tricks-score" value="<%= tricksScore %>" disabled/>
+		</td>
+		<!--jump-->
+		<td>
+			<input type="text" class="player-jump-result js-player-jump-result" value="<%= jumpResult %>"/>
+		</td>
+		<td>
+			<input type="text" class="player-jump-score js-player-jump-score" value="<%= jumpScore %>" disabled/>
+		</td>
+		<!--todo overall-->
 	</script>
 
 	<h1>Команды</h1>
 
-	<form action="" id="addTeam">
+	<form action="" class="team-add js-team-add">
 		<input type="text" placeholder="Название команды"/>
 		<input type="submit" value="Добавить команду"/>
 	</form>

@@ -2,8 +2,15 @@ $(function () {
 	App.Model.Player = Backbone.Model.extend({
 		defaults: {
 			name: '',
-			gender: ''
-
+			gender: '',
+			slalomResult: 0.0,
+			slalomTrackIndex: 0, // index of track from SlalomData.js
+			slalomBuoysIndex: 0, // index of buoys from SlalomData.js
+			slalomScore: 0.0,
+			tricksResult: 0,
+			tricksScore: 0.0,
+			jumpResult: 0.0,
+			jumpScore: 0.0
 		},
 
 		initialize: function () {
@@ -12,10 +19,7 @@ $(function () {
 	        });
 		},
 
-		toJSON: function() {
-			return _.pick(this.attributes, 'name', 'gender');
-		},
-
+        // todo setters and getters and validation for scores and results
 		validate: function (attrs) {
 			if (!$.trim(attrs.name)) {
 				return 'Имя спортсмена не должно быть пустым';

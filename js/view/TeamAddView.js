@@ -1,6 +1,6 @@
 $(function() {
 	App.View.AddTeam = Backbone.View.extend({
-		el: '#addTeam',
+		el: '.js-team-add',
 
 		initialize: function() {
 		},
