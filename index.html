@@ -70,13 +70,13 @@
 			<select class="player-slalom-buoys js-player-slalom-buoys">
 				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
 				<!--todo change . with , ?-->
-				<option value="{% i %}" <%= (i === slalomBuoysIndex) ? 'selected' : '' %>><%= window.SLALOM_BUOYS[i].toFixed(2) %></option>
+				<option value="<%= i %>" <%= (i == slalomBuoysIndex) ? 'selected' : '' %>><%= window.SLALOM_BUOYS[i].toFixed(2) %></option>
 				<% } %>
 			</select>
 			/
 			<select class="player-slalom-track js-player-slalom-track">
 				<% for (var i = 0; i < window.SLALOM_TRACKS.MEN.length; i++) { %>
-				<option value="{% i %}" <%= (i === slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
+				<option value="<%= i %>" <%= (i == slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
 				<% } %>
 			</select>
 		</td>
