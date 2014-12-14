@@ -11,7 +11,7 @@ $(function () {
 				{ name: "Лыжник 3", gender: "M" },
 				{ name: "Лыжник 4", gender: "M" }
 			]);
-			if (!this.getPlayers()) { // TODO change to backbone checking for new?
+			if (!this.getPlayers()) {
 				this.setPlayers(defaultPlayers);
 			}
 
