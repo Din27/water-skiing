@@ -14,9 +14,12 @@ $(function () {
 		},
 
 		initialize: function () {
-	        this.on("invalid", function (model, error) {
+	        this.on('invalid', function (model, error) {
 	            console.log('Ошибка валидации: ' + error);
 	        });
+			this.on('change', function() {
+				window.updateScores();
+			}, this);
 		},
 
         // todo validation for scores and results
@@ -27,6 +30,10 @@ $(function () {
 			if (attrs.gender !== "M" && attrs.gender !== "F" ) {
 				return 'Нужно выбрать пол спортсмену';
 			}
+		},
+
+		updateSlalomResult: function () {
+			return this.setSlalomResult(this.getSlalomTrackIndex() * 6 + window.SLALOM_BUOYS[this.getSlalomBuoysIndex()]);
 		},
 
 		setName: function (name) {
@@ -46,7 +53,9 @@ $(function () {
 		},
 
 		setSlalomTrackIndex: function (slalomTrackIndex) {
-			return this.set({slalomTrackIndex: slalomTrackIndex}, {validate: true});
+			this.set({slalomTrackIndex: slalomTrackIndex}, {validate: true});
+			this.updateSlalomResult();
+			return this;
 		},
 
 		getSlalomTrackIndex: function () {
@@ -54,7 +63,9 @@ $(function () {
 		},
 
 		setSlalomBuoysIndex: function (slalomBuoysIndex) {
-			return this.set({slalomBuoysIndex: slalomBuoysIndex}, {validate: true});
+			this.set({slalomBuoysIndex: slalomBuoysIndex}, {validate: true});
+			this.updateSlalomResult();
+			return this;
 		},
 
 		getSlalomBuoysIndex: function () {

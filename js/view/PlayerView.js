@@ -55,13 +55,13 @@ $(function () {
 		},
 
 		editSlalomBuoys: function () {
-			var slalomBuoysIndex = $(this.el).find(this._selectors.slalomBuoys).val();
+			var slalomBuoysIndex = +$(this.el).find(this._selectors.slalomBuoys).val();
 			this.model.setSlalomBuoysIndex(slalomBuoysIndex);
 			this.render();
 		},
 
 		editSlalomTrack: function () {
-			var slalomTrackIndex = $(this.el).find(this._selectors.slalomTrack).val();
+			var slalomTrackIndex = +$(this.el).find(this._selectors.slalomTrack).val();
 			this.model.setSlalomTrackIndex(slalomTrackIndex);
 			this.render();
 		},

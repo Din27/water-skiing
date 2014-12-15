@@ -17,6 +17,7 @@
 	<script src="js/lib/backbone.localStorage.js"></script>
 
 	<script src="js/AppModules.js"></script>
+	<script src="js/other/TopResults.js"></script>
 	<script src="js/other/SlalomData.js"></script>
 	<script src="js/router/Router.js"></script>
 	<script src="js/model/TeamModel.js"></script>
@@ -47,7 +48,7 @@
 				<tr>
 					<th>Имя</th>
 					<th>Пол</th>
-					<th colspan="2">Слалом</th>
+					<th colspan="3">Слалом</th>
 					<th colspan="2">Фигурное катание</th>
 					<th colspan="2">Трамплин</th>
 				</tr>
@@ -81,7 +82,10 @@
 			</select>
 		</td>
 		<td>
-			<input type="text" class="player-slalom-score js-player-slalom-score" value="<%= slalomScore %>" disabled/>
+			<input type="text" class="player-slalom-result js-player-slalom-result" value="<%= slalomResult.toFixed(2) %>" disabled/>
+		</td>
+		<td>
+			<input type="text" class="player-slalom-score js-player-slalom-score" value="<%= slalomScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--tricks-->
 		<td>

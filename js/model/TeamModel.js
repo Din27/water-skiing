@@ -20,7 +20,6 @@ $(function () {
 
 
 		bindEvents: function() {
-
 			var saveTeamModel = _.bind(function() {
 				this.save(null, {success: function() {
 					console.log('Команда сохранена');
@@ -30,10 +29,10 @@ $(function () {
 			}, this);
 
 			this.getPlayers().on('change', function() {
-				saveTeamModel();
+				_.defer(saveTeamModel);
 			});
 			this.on('change:name', function (){
-				saveTeamModel();
+				_.defer(saveTeamModel);
 			});
 
 			// invalid case
