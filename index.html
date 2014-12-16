@@ -92,14 +92,14 @@
 			<input type="text" class="player-tricks-result js-player-tricks-result" value="<%= tricksResult %>"/>
 		</td>
 		<td>
-			<input type="text" class="player-tricks-score js-player-tricks-score" value="<%= tricksScore %>" disabled/>
+			<input type="text" class="player-tricks-score js-player-tricks-score" value="<%= tricksScore.toFixed(3) %>" disabled/>
 		</td>
 		<!--jump-->
 		<td>
 			<input type="text" class="player-jump-result js-player-jump-result" value="<%= jumpResult %>"/>
 		</td>
 		<td>
-			<input type="text" class="player-jump-score js-player-jump-score" value="<%= jumpScore %>" disabled/>
+			<input type="text" class="player-jump-score js-player-jump-score" value="<%= jumpScore.toFixed(3) %>" disabled/>
 		</td>
 		<!--todo overall-->
 	</script>

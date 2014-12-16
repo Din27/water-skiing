@@ -4,6 +4,7 @@ $(function () {
 
 	window.teams = new App.Collection.Team();
 	window.teams.fetch();
+	window.updateScores();
 
 	var teamsView = new App.View.TeamCollection({collection: teams});
 	$('.teams').html(teamsView.render().el);

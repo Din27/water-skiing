@@ -10,11 +10,8 @@ $(function () {
 			gender: '.js-player-gender',
 			slalomBuoys: '.js-player-slalom-buoys',
 			slalomTrack: '.js-player-slalom-track',
-			slalomScore: '.js-player-slalom-score',
 			tricksResult: '.js-player-tricks-result',
-			tricksScore: '.js-player-tricks-score',
-			jumpResult: '.js-player-jump-result',
-			jumpScore: '.js-player-jump-score'
+			jumpResult: '.js-player-jump-result'
 		},
 
 		events: function () {
@@ -23,6 +20,8 @@ $(function () {
 			_events['change ' + this._selectors.gender] = 'editGender';
 			_events['change ' + this._selectors.slalomBuoys] = 'editSlalomBuoys';
 			_events['change ' + this._selectors.slalomTrack] = 'editSlalomTrack';
+			_events['change ' + this._selectors.tricksResult] = 'editTricksResult';
+			_events['change ' + this._selectors.jumpResult] = 'editJumpResult';
 			return _events;
 		},
 
@@ -63,6 +62,18 @@ $(function () {
 		editSlalomTrack: function () {
 			var slalomTrackIndex = +$(this.el).find(this._selectors.slalomTrack).val();
 			this.model.setSlalomTrackIndex(slalomTrackIndex);
+			this.render();
+		},
+
+		editTricksResult: function () {
+			var tricksResult = +$(this.el).find(this._selectors.tricksResult).val();
+			this.model.setTricksResult(tricksResult);
+			this.render();
+		},
+
+		editJumpResult: function () {
+			var jumpResult = +$(this.el).find(this._selectors.jumpResult).val();
+			this.model.setJumpResult(jumpResult);
 			this.render();
 		},
 
