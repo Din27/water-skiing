@@ -70,18 +70,18 @@
 						<td colspan="2"></td>
 						<td class="col-after-divide" colspan="4"></td>
 						<td>
-							<input type="text" value="<%= slalomScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+							<input type="text" value="<%= slalomScore.toFixed(2) %>" disabled class="form-control input-sm team-event-score"/>
 						</td>
 						<td class="col-after-divide"></td>
 						<td>
-							<input type="text" value="<%= tricksScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+							<input type="text" value="<%= tricksScore.toFixed(2) %>" disabled class="form-control input-sm team-event-score"/>
 						</td>
 						<td class="col-after-divide"></td>
 						<td>
-							<input type="text" value="<%= jumpScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+							<input type="text" value="<%= jumpScore.toFixed(2) %>" disabled class="form-control input-sm team-event-score"/>
 						</td>
 						<td class="col-after-divide">
-							<input type="text" value="<%= overallScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+							<input type="text" value="<%= overallScore.toFixed(2) %>" disabled class="form-control input-sm team-overall-score"/>
 						</td>
 					</tr>
 				</tfoot>
@@ -121,25 +121,25 @@
 			<input type="text" class="player-slalom-result js-player-slalom-result form-control input-sm" value="<%= slalomResult.toFixed(2) %>" disabled/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm <%= isSlalomInTeamScore ? 'in-team-score' : ''%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
+			<input type="text" class="form-control input-sm <%= isSlalomInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
 			<input type="text" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : ''%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
+			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
 			<input type="text" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : ''%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
+			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--overall-->
 		<td class="col col-score col-after-divide">
-			<input type="text" class="form-control input-sm" value="<%= overallScore.toFixed(2) %>" disabled/>
+			<input type="text" class="form-control input-sm player-overall-score" value="<%= overallScore.toFixed(2) %>" disabled/>
 		</td>
 	</script>
 

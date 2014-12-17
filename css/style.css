@@ -77,14 +77,56 @@ body {
 }
 
 .team tbody .in-team-score {
-	border-color: #d4b320;
+	background-color: rgb(215, 238, 215);
+	color: rgb(40, 85, 40);
+	border-color: rgb(155, 204, 155);
 	outline: 0;
 	outline: thin dotted \9;
 	/* IE6-9 */
 
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(230, 196, 20, 0.75);
-	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(230, 196, 20, 0.75);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(230, 196, 20, 0.75);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(90, 196, 90, 0.3);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(90, 196, 90, 0.3);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(90, 196, 90, 0.3);
+}
+
+/*.team tbody .not-in-team-score {*/
+	/*background-color: rgb(238, 225, 210);*/
+	/*color: rgb(85, 70, 40);*/
+	/*border-color: rgb(204, 190, 155);*/
+	/*outline: 0;*/
+	/*outline: thin dotted \9;*/
+	/* IE6-9 */
+
+	/*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 160, 90, 0.3);*/
+	/*-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 160, 90, 0.3);*/
+	/*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 160, 90, 0.3);*/
+/*}*/
+
+.team .player-overall-score,
+.team .team-event-score {
+	background-color: rgb(238, 220, 215);
+	color: rgb(90, 50, 40);
+	border-color: rgb(204, 175, 165);
+	outline: 0;
+	outline: thin dotted \9;
+	/* IE6-9 */
+
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
+}
+
+.team .team-overall-score {
+	background-color: rgb(240, 195, 190);
+	color: rgb(90, 50, 40);
+	border-color: rgb(195, 165, 155);
+	outline: 0;
+	outline: thin dotted \9;
+	/* IE6-9 */
+
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(196, 100, 90, 0.3);
 }
 
 .team tfoot {
