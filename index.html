@@ -21,6 +21,7 @@
 
 	<script src="js/AppModules.js"></script>
 	<script src="js/other/TopResults.js"></script>
+	<script src="js/other/TeamColors.js"></script>
 	<script src="js/other/SlalomData.js"></script>
 	<script src="js/router/Router.js"></script>
 	<script src="js/model/TeamModel.js"></script>
@@ -44,12 +45,16 @@
 
 	<!-- TODO put to separate tmpl file -->
 	<script type="text/template" id="teamTemplate">
-		<div class="team-container">
+		<div class="team-container" style="background-color: <%= window.TEAM_COLORS[colorIndex].color %>">
 			<table class="team js-team table table-condensed">
-
 				<caption>
 					<form role="form=" action="" class="team-add js-team-add form-inline">
 						<div class="form-group">
+							<select class="js-team-color form-control input-sm">
+								<% for (var i = 0; i < window.TEAM_COLORS.length; i++) { %>
+								<option value="<%= i %>" style="background-color: <%= window.TEAM_COLORS[i].color %>" <%= (i == colorIndex) ? 'selected' : '' %>><%= window.TEAM_COLORS[i].name %></option>
+								<% } %>
+							</select>
 							<input type="text" class="team-name js-team-name form-control input-sm" value="<%= name %>"/>
 							<button class="js-team-delete-button btn btn-sm btn-default">Удалить</button>
 						</div>
@@ -150,11 +155,23 @@
 	<div class="teams">
 	</div>
 
-	<form role="form=" action="" class="team-add js-team-add form-inline">
-		<div class="form-group">
-			<input type="text" placeholder="Название команды" class="js-team-name form-control input-sm"/>
-			<button type="button" class="js-team-add-button btn btn-primary btn-sm">Добавить команду</button>
-		</div>
-	</form>
+	<script type="text/template" id="teamAddTemplate">
+		<form role="form" action="" class="team-add js-team-add form-inline">
+			<div class="form-group">
+				<select class="js-team-color form-control input-sm">
+					<% for (var i = 0; i < window.TEAM_COLORS.length; i++) { %>
+					<option value="<%= i %>"
+							style="background-color: <%= window.TEAM_COLORS[i].color %>"
+							<%= (i == 0) ? 'selected' : '' %>
+					>
+						<%= window.TEAM_COLORS[i].name %>
+					</option>
+					<% } %>
+				</select>
+				<input type="text" placeholder="Название команды" class="js-team-name form-control input-sm"/>
+				<button type="button" class="js-team-add-button btn btn-primary btn-sm">Добавить команду</button>
+			</div>
+		</form>
+	</script>
 </body>
 </html>

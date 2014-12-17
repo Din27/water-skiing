@@ -5,7 +5,8 @@ $(function () {
 			slalomScore: 0,
 			tricksScore: 0,
 			jumpScore: 0,
-			overallScore: 0
+			overallScore: 0,
+			colorIndex: 0
 		},
 
 		initialize: function () {
@@ -43,17 +44,19 @@ $(function () {
 
 		bindEvents: function() {
 			var saveTeamModel = _.bind(function() {
-				this.save(null, {success: function() {
-					console.log('Команда сохранена');
-				}, error: function() {
-					console.log('Команда не сохранена');
-				}});
+				if (this.hasChanged()) {
+					this.save(null, {success: function() {
+						console.log('Команда сохранена');
+					}, error: function() {
+						console.log('Команда не сохранена');
+					}});
+				}
 			}, this);
 
 			this.getPlayers().on('change', function() {
 				_.defer(saveTeamModel);
 			});
-			this.on('change:name', function (){
+			this.on('change:name, change:colorIndex', function (){
 				_.defer(saveTeamModel);
 			});
 
@@ -109,6 +112,14 @@ $(function () {
 
 		getOverallScore: function () {
 			return this.get('overallScore');
+		},
+
+		setColorIndex: function (colorIndex) {
+			return this.set({colorIndex: colorIndex}, {validate: true});
+		},
+
+		getColorIndex: function () {
+			return this.get('colorIndex');
 		}
 	});
 });

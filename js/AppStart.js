@@ -10,6 +10,7 @@ $(function () {
 	$('.teams').html(teamsView.render().el);
 
 	var addTeamView = new App.View.AddTeam({collection: teams});
+	addTeamView.render();
 	
 	// TODO uncomment when everything is ready. For testing this is too annoying :D
 	/*
