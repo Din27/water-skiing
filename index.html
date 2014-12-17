@@ -90,17 +90,17 @@
 	</script>
 
 	<script type="text/template" id="playerTemplate">
-		<td class="col-md-2">
+		<td class="col col-name">
 			<input type="text" class="player-name js-player-name form-control input-sm" value="<%= name %>"/>
 		</td>
-		<td class="col-md-1">
+		<td class="col col-gender">
 			<select class="player-gender js-player-gender form-control input-sm">
 				<option value="M" <% if (gender === "M") {%>selected<%}%>>М</option>
 				<option value="F" <% if (gender === "F") {%>selected<%}%>>Ж</option>
 			</select>
 		</td>
 		<!--slalom-->
-		<td class="col-md-1">
+		<td class="col col-slalom-buoys">
 			<select class="player-slalom-buoys js-player-slalom-buoys form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
 				<!--todo change . with , ?-->
@@ -108,36 +108,36 @@
 				<% } %>
 			</select>
 		</td>
-		<td>/</td>
-		<td class="col-md-1">
+		<td class="col col-slalom-slash">/</td>
+		<td class="col col-slalom-track">
 			<select class="player-slalom-track js-player-slalom-track form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_TRACKS.MEN.length; i++) { %>
 				<option value="<%= i %>" <%= (i == slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
 				<% } %>
 			</select>
 		</td>
-		<td class="col-md-1">
+		<td class="col col-result">
 			<input type="text" class="player-slalom-result js-player-slalom-result form-control input-sm" value="<%= slalomResult.toFixed(2) %>" disabled/>
 		</td>
-		<td class="col-md-1">
+		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isSlalomInTeamScore ? 'in-team-score' : ''%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--tricks-->
-		<td class="col-md-1">
+		<td class="col col-result">
 			<input type="text" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
 		</td>
-		<td class="col-md-1">
+		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : ''%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
-		<td class="col-md-1">
+		<td class="col col-result">
 			<input type="text" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
 		</td>
-		<td class="col-md-1">
+		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : ''%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--overall-->
-		<td class="col-md-1">
+		<td class="col col-score">
 			<input type="text" class="form-control input-sm" value="<%= overallScore.toFixed(2) %>" disabled/>
 		</td>
 	</script>

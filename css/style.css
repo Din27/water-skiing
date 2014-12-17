@@ -28,8 +28,13 @@ body {
 	margin: 5px 0;
 }
 
+.team th,
+.team caption,
+.team td {
+	padding: 3px !important;
+}
+
 .team caption {
-	padding: 5px;
 	border-bottom: 2px solid #ddd;
 }
 
@@ -38,10 +43,34 @@ body {
 }
 
 .team thead th {
-	padding-left: 10px !important;
+	padding-left: 8px !important;
 }
 
-.team .in-team-score {
+.team .col {
+}
+
+.team .col-name {
+	width: 22%;
+}
+.team .col-gender {
+	width: 5%;
+}
+.team .col-slalom-buoys {
+	width: 8%;
+}
+.team .col-slalom-slash {
+	width: 1%;
+	text-align: center;
+}
+.team .col-slalom-track {
+	width: 8%;
+}
+.team .col-score,
+.team .col-result {
+	width: 8%;
+}
+
+.team tbody .in-team-score {
 	border-color: #d4b320;
 	outline: 0;
 	outline: thin dotted \9;
