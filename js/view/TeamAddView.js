@@ -6,13 +6,12 @@ $(function() {
 		},
 
 		events: {
-			'submit': 'submit'
+			'click .js-team-add-button': 'addTeam'
 		},
 
-		submit: function (e) {
+		addTeam: function (e) {
 			e.preventDefault();
-
-			var newTeamName = $(e.currentTarget).find('input[type=text]').val();
+			var newTeamName = this.$el.find('.js-team-name').val();
 			var newTeam = new App.Model.Team({name: newTeamName}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
 			newTeam.save(null, {success: function() {

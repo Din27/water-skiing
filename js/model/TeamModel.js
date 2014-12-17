@@ -20,6 +20,7 @@ $(function () {
 			}
 
 			this.bindEvents();
+			_.defer(window.updateScores);
 		},
 
 		parse: function(data){

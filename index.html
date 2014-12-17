@@ -6,15 +6,18 @@
 	
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="viewport" content="user-scalable=no, width=device-width" />
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
-	
+
+	<link href="js/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 	
 	<script src="js/lib/jquery.js"></script>
 	<script src="js/lib/underscore.js"></script>
 	<script src="js/lib/backbone.js"></script>
 	<script src="js/lib/backbone.localStorage.js"></script>
+	<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
 
 	<script src="js/AppModules.js"></script>
 	<script src="js/other/TopResults.js"></script>
@@ -41,100 +44,116 @@
 
 	<!-- TODO put to separate tmpl file -->
 	<script type="text/template" id="teamTemplate">
-		<hr/>
-		<table class="team js-team">
-			<caption><input type="text" class="team-name js-team-name" value="<%= name %>"/><button class="team-delete js-team-delete">x</button></caption>
-			<thead>
-				<tr>
-					<th>Имя</th>
-					<th>Пол</th>
-					<th colspan="3">Слалом</th>
-					<th colspan="2">Фигурное катание</th>
-					<th colspan="2">Трамплин</th>
-					<th>Всего</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="4"></td>
-					<td>
-						<input type="text" value="<%= slalomScore.toFixed(2) %>" disabled/>
-					</td>
-					<td></td>
-					<td>
-						<input type="text" value="<%= tricksScore.toFixed(2) %>" disabled/>
-					</td>
-					<td></td>
-					<td>
-						<input type="text" value="<%= jumpScore.toFixed(2) %>" disabled/>
-					</td>
-					<td>
-						<input type="text" value="<%= overallScore.toFixed(2) %>" disabled/>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
+		<div class="team-container">
+			<table class="team js-team table table-condensed">
+
+				<caption>
+					<form role="form=" action="" class="team-add js-team-add form-inline">
+						<div class="form-group">
+							<input type="text" class="team-name js-team-name form-control input-sm" value="<%= name %>"/>
+							<button class="js-team-delete-button btn btn-sm btn-default">Удалить</button>
+						</div>
+					</form>
+				</caption>
+				<thead>
+					<tr>
+						<th>Имя</th>
+						<th>Пол</th>
+						<th colspan="5">Слалом</th>
+						<th colspan="2">Фигурное катание</th>
+						<th colspan="2">Трамплин</th>
+						<th>Всего</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"></td>
+						<td>
+							<input type="text" value="<%= slalomScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+						</td>
+						<td></td>
+						<td>
+							<input type="text" value="<%= tricksScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+						</td>
+						<td></td>
+						<td>
+							<input type="text" value="<%= jumpScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+						</td>
+						<td>
+							<input type="text" value="<%= overallScore.toFixed(2) %>" disabled class="form-control input-sm"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<hr class="team-divider"/>
 	</script>
 
 	<script type="text/template" id="playerTemplate">
-		<td>
-			<input type="text" class="player-name js-player-name" value="<%= name %>"/>
+		<td class="col-md-2">
+			<input type="text" class="player-name js-player-name form-control input-sm" value="<%= name %>"/>
 		</td>
-		<td>
-			<select class="player-gender js-player-gender">
+		<td class="col-md-1">
+			<select class="player-gender js-player-gender form-control input-sm">
 				<option value="M" <% if (gender === "M") {%>selected<%}%>>М</option>
 				<option value="F" <% if (gender === "F") {%>selected<%}%>>Ж</option>
 			</select>
 		</td>
 		<!--slalom-->
-		<td>
-			<select class="player-slalom-buoys js-player-slalom-buoys">
+		<td class="col-md-1">
+			<select class="player-slalom-buoys js-player-slalom-buoys form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
 				<!--todo change . with , ?-->
 				<option value="<%= i %>" <%= (i == slalomBuoysIndex) ? 'selected' : '' %>><%= window.SLALOM_BUOYS[i].toFixed(2) %></option>
 				<% } %>
 			</select>
-			/
-			<select class="player-slalom-track js-player-slalom-track">
+		</td>
+		<td>/</td>
+		<td class="col-md-1">
+			<select class="player-slalom-track js-player-slalom-track form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_TRACKS.MEN.length; i++) { %>
 				<option value="<%= i %>" <%= (i == slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
 				<% } %>
 			</select>
 		</td>
-		<td>
-			<input type="text" class="player-slalom-result js-player-slalom-result" value="<%= slalomResult.toFixed(2) %>" disabled/>
+		<td class="col-md-1">
+			<input type="text" class="player-slalom-result js-player-slalom-result form-control input-sm" value="<%= slalomResult.toFixed(2) %>" disabled/>
 		</td>
-		<td>
-			<input type="text" class="<%= isSlalomInTeamScore ? 'in-team-score' : ''%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
+		<td class="col-md-1">
+			<input type="text" class="form-control input-sm <%= isSlalomInTeamScore ? 'in-team-score' : ''%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--tricks-->
-		<td>
-			<input type="text" class="player-tricks-result js-player-tricks-result" value="<%= tricksResult %>"/>
+		<td class="col-md-1">
+			<input type="text" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
 		</td>
-		<td>
-			<input type="text" class="<%= isTricksInTeamScore ? 'in-team-score' : ''%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
+		<td class="col-md-1">
+			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : ''%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
-		<td>
-			<input type="text" class="player-jump-result js-player-jump-result" value="<%= jumpResult %>"/>
+		<td class="col-md-1">
+			<input type="text" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
 		</td>
-		<td>
-			<input type="text" class="<%= isJumpInTeamScore ? 'in-team-score' : ''%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
+		<td class="col-md-1">
+			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : ''%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--overall-->
-		<td>
-			<input type="text" value="<%= overallScore.toFixed(2) %>" disabled/>
+		<td class="col-md-1">
+			<input type="text" class="form-control input-sm" value="<%= overallScore.toFixed(2) %>" disabled/>
 		</td>
 	</script>
 
-	<h1>Команды</h1>
+	<h3>Команды</h3>
+	<hr class="team-divider"/>
 
-	<form action="" class="team-add js-team-add">
-		<input type="text" placeholder="Название команды"/>
-		<input type="submit" value="Добавить команду"/>
-	</form>
 
 	<div class="teams">
 	</div>
+
+	<form role="form=" action="" class="team-add js-team-add form-inline">
+		<div class="form-group">
+			<input type="text" placeholder="Название команды" class="js-team-name form-control input-sm"/>
+			<button type="button" class="js-team-add-button btn btn-primary btn-sm">Добавить команду</button>
+		</div>
+	</form>
 </body>
 </html>

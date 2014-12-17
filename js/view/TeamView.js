@@ -31,7 +31,7 @@ $(function () {
 
 		events: {
 			'change .js-team-name': 'editTeamName',
-			'click .js-team-delete': 'destroy'
+			'click .js-team-delete-button': 'destroy'
 		},
 
 		editTeamName: function () {
