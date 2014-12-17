@@ -117,6 +117,7 @@ body {
 }
 
 .team .team-overall-score {
+	font-weight: bold;
 	background-color: rgb(240, 195, 190);
 	color: rgb(90, 50, 40);
 	border-color: rgb(195, 165, 155);
@@ -131,8 +132,4 @@ body {
 
 .team tfoot {
 	border-top: 2px solid #ccc;
-}
-
-.team tfoot input {
-	font-weight: bold;
 }
