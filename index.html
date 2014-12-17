@@ -59,27 +59,28 @@
 					<tr>
 						<th>Имя</th>
 						<th>Пол</th>
-						<th colspan="5">Слалом</th>
-						<th colspan="2">Фигурное катание</th>
-						<th colspan="2">Трамплин</th>
-						<th>Всего</th>
+						<th class="col-after-divide" colspan="5">Слалом</th>
+						<th class="col-after-divide" colspan="2">Фигурное катание</th>
+						<th class="col-after-divide" colspan="2">Трамплин</th>
+						<th class="col-after-divide">Всего</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6"></td>
+						<td colspan="2"></td>
+						<td class="col-after-divide" colspan="4"></td>
 						<td>
 							<input type="text" value="<%= slalomScore.toFixed(2) %>" disabled class="form-control input-sm"/>
 						</td>
-						<td></td>
+						<td class="col-after-divide"></td>
 						<td>
 							<input type="text" value="<%= tricksScore.toFixed(2) %>" disabled class="form-control input-sm"/>
 						</td>
-						<td></td>
+						<td class="col-after-divide"></td>
 						<td>
 							<input type="text" value="<%= jumpScore.toFixed(2) %>" disabled class="form-control input-sm"/>
 						</td>
-						<td>
+						<td class="col-after-divide">
 							<input type="text" value="<%= overallScore.toFixed(2) %>" disabled class="form-control input-sm"/>
 						</td>
 					</tr>
@@ -100,7 +101,7 @@
 			</select>
 		</td>
 		<!--slalom-->
-		<td class="col col-slalom-buoys">
+		<td class="col col-slalom-buoys col-after-divide">
 			<select class="player-slalom-buoys js-player-slalom-buoys form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
 				<!--todo change . with , ?-->
@@ -123,21 +124,21 @@
 			<input type="text" class="form-control input-sm <%= isSlalomInTeamScore ? 'in-team-score' : ''%>" value="<%= slalomScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--tricks-->
-		<td class="col col-result">
+		<td class="col col-tricks col-result col-after-divide">
 			<input type="text" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : ''%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
-		<td class="col col-result">
+		<td class="col col-jump col-result col-after-divide">
 			<input type="text" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : ''%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--overall-->
-		<td class="col col-score">
+		<td class="col col-score col-after-divide">
 			<input type="text" class="form-control input-sm" value="<%= overallScore.toFixed(2) %>" disabled/>
 		</td>
 	</script>
