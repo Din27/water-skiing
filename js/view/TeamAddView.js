@@ -12,6 +12,7 @@ $(function() {
 		addTeam: function (e) {
 			e.preventDefault();
 			var newTeamName = this.$el.find('.js-team-name').val();
+			if (!$.trim(newTeamName)) newTeamName = "Команда";
 			var newTeam = new App.Model.Team({name: newTeamName}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
 			newTeam.save(null, {success: function() {
