@@ -3,14 +3,22 @@ $(function () {
 		defaults: {
 			name: '',
 			gender: '',
+
 			slalomTrackIndex: 0, // index of track from SlalomData.js
 			slalomBuoysIndex: 0, // index of buoys from SlalomData.js
 			slalomResult: 0.0,
-			slalomScore: 0.0,
+			slalomScore: 0.00,
+			isSlalomInTeamScore: false,
+
 			tricksResult: 0,
-			tricksScore: 0.0,
+			tricksScore: 0.00,
+			isTricksInTeamScore: false,
+
 			jumpResult: 0.0,
-			jumpScore: 0.0
+			jumpScore: 0.00,
+			isJumpInTeamScore: false,
+
+			overallScore: 0.00
 		},
 
 		initialize: function () {
@@ -18,7 +26,7 @@ $(function () {
 	            console.log('Ошибка валидации: ' + error);
 	        });
 			this.on('change', function() {
-				window.updateScores();
+				_.defer(window.updateScores);
 			}, this);
 		},
 
@@ -88,6 +96,14 @@ $(function () {
 			return this.get('slalomScore');
 		},
 
+		setIsSlalomInTeamScore: function (isSlalomInTeamScore) {
+			return this.set({isSlalomInTeamScore: isSlalomInTeamScore}, {validate: true});
+		},
+
+		getIsSlalomInTeamScore: function () {
+			return this.get('isSlalomInTeamScore');
+		},
+
 		setTricksResult: function (tricksResult) {
 			return this.set({tricksResult: tricksResult}, {validate: true});
 		},
@@ -104,6 +120,14 @@ $(function () {
 			return this.get('tricksScore');
 		},
 
+		setIsTricksInTeamScore: function (isTricksInTeamScore) {
+			return this.set({isTricksInTeamScore: isTricksInTeamScore}, {validate: true});
+		},
+
+		getIsTricksInTeamScore: function () {
+			return this.get('isTricksInTeamScore');
+		},
+
 		setJumpResult: function (jumpResult) {
 			return this.set({jumpResult: jumpResult}, {validate: true});
 		},
@@ -118,6 +142,22 @@ $(function () {
 
 		getJumpScore: function () {
 			return this.get('jumpScore');
+		},
+
+		setIsJumpInTeamScore: function (isJumpInTeamScore) {
+			return this.set({isJumpInTeamScore: isJumpInTeamScore}, {validate: true});
+		},
+
+		getIsJumpInTeamScore: function () {
+			return this.get('isJumpInTeamScore');
+		},
+
+		setOverallScore: function (overallScore) {
+			return this.set({overallScore: overallScore}, {validate: true});
+		},
+
+		getOverallScore: function () {
+			return this.get('overallScore');
 		}
 	});
 });

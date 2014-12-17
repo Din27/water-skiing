@@ -19,3 +19,11 @@ ul, li {
 .team caption {
 	align: left;
 }
+
+.team .in-team-score {
+	border: 2px solid #55aa55;
+}
+
+.team tfoot input {
+	font-weight: bold;
+}

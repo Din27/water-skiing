@@ -1,7 +1,11 @@
 $(function () {
 	App.Model.Team = Backbone.Model.extend({
 		defaults: {
-			name: ''
+			name: '',
+			slalomScore: 0,
+			tricksScore: 0,
+			jumpScore: 0,
+			overallScore: 0
 		},
 
 		initialize: function () {
@@ -18,6 +22,23 @@ $(function () {
 			this.bindEvents();
 		},
 
+		parse: function(data){
+			if (this.getPlayers()) {
+				this.getPlayers().reset(data.players);
+			} else {
+				this.setPlayers(new App.Collection.Player(data.players));
+			}
+			//this.bindEvents();
+			delete data.players;
+			this.trigger('playersReset')
+			return data;
+		},
+
+		validate: function (attrs) {
+			if (!$.trim(attrs.name)) {
+				return 'Имя команды не должно быть пустым';
+			}
+		},
 
 		bindEvents: function() {
 			var saveTeamModel = _.bind(function() {
@@ -41,25 +62,6 @@ $(function () {
 			});
 		},
 
-
-		parse: function(data){
-			if (this.getPlayers()) {
-				this.getPlayers().reset(data.players);
-			} else {
-				this.setPlayers(new App.Collection.Player(data.players));
-			}
-			//this.bindEvents();
-			delete data.players;
-			this.trigger('playersReset')
-			return data;
-		},
-
-		validate: function (attrs) {
-			if (!$.trim(attrs.name)) {
-				return 'Имя команды не должно быть пустым'; 
-			}
-		},
-
 		setName: function (name) {
 			return this.set({name: name}, {validate: true});
 		},
@@ -74,6 +76,38 @@ $(function () {
 
 		getPlayers: function() {
 			return this.get('players');
+		},
+
+		setSlalomScore: function (slalomScore) {
+			return this.set({slalomScore: slalomScore}, {validate: true});
+		},
+
+		getSlalomScore: function () {
+			return this.get('slalomScore');
+		},
+
+		setTricksScore: function (tricksScore) {
+			return this.set({tricksScore: tricksScore}, {validate: true});
+		},
+
+		getTricksScore: function () {
+			return this.get('tricksScore');
+		},
+
+		setJumpScore: function (jumpScore) {
+			return this.set({jumpScore: jumpScore}, {validate: true});
+		},
+
+		getJumpScore: function () {
+			return this.get('jumpScore');
+		},
+
+		setOverallScore: function (overallScore) {
+			return this.set({overallScore: overallScore}, {validate: true});
+		},
+
+		getOverallScore: function () {
+			return this.get('overallScore');
 		}
 	});
 });
