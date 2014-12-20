@@ -20,20 +20,16 @@ $(function () {
 				this.setPlayers(defaultPlayers);
 			}
 
-			this.bindEvents();
-			_.defer(window.updateScores);
+			// invalid case
+			this.on('invalid', function (model, error) {
+				console.log('Ошибка валидации: ' + error);
+			});
 		},
 
-		parse: function(data){
-			if (this.getPlayers()) {
-				this.getPlayers().reset(data.players);
-			} else {
-				this.setPlayers(new App.Collection.Player(data.players));
-			}
-			//this.bindEvents();
-			delete data.players;
-			this.trigger('playersReset')
-			return data;
+		dispose: function(success, error) {
+			this.getPlayers().dispose();
+			this.destroy(success, error);
+			this.off();
 		},
 
 		validate: function (attrs) {
@@ -42,28 +38,10 @@ $(function () {
 			}
 		},
 
-		bindEvents: function() {
-			var saveTeamModel = _.bind(function() {
-				if (this.hasChanged()) {
-					this.save(null, {success: function() {
-						console.log('Команда сохранена');
-					}, error: function() {
-						console.log('Команда не сохранена');
-					}});
-				}
+		bindPlayersEvents: function() {
+			this.getPlayers().on('change:name change:gender change:slalomResult change:tricksResult change:jumpResult', function(){
+				this.trigger('playersChanged');
 			}, this);
-
-			this.getPlayers().on('change', function() {
-				_.defer(saveTeamModel);
-			});
-			this.on('change:name, change:colorIndex', function (){
-				_.defer(saveTeamModel);
-			});
-
-			// invalid case
-			this.on('invalid', function (model, error) {
-				console.log('Ошибка валидации: ' + error);
-			});
 		},
 
 		setName: function (name) {
@@ -75,7 +53,9 @@ $(function () {
 		},
 
 		setPlayers: function(players) {
-			return this.set({players: players});
+			this.set({players: players});
+			this.bindPlayersEvents();
+			return this;
 		},
 
 		getPlayers: function() {

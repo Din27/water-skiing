@@ -13,7 +13,7 @@ $(function() {
 
 		render: function() {
 			this.$el.html(this.template());
-			$('body').append(this.$el);
+			return this;
 		},
 
 		addTeam: function (e) {
@@ -23,11 +23,6 @@ $(function() {
 			if (!$.trim(name)) name = "Команда";
 			var newTeam = new App.Model.Team({name: name, colorIndex: colorIndex}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
-			newTeam.save(null, {success: function() {
-				console.log('Команда "' + name + '" сохранена');
-			}, error: function() {
-				console.log('Команда "' + name + '" не сохранена');
-			}});
 		}
 	})
 });

@@ -25,9 +25,11 @@ $(function () {
 	        this.on('invalid', function (model, error) {
 	            console.log('Ошибка валидации: ' + error);
 	        });
-			this.on('change', function() {
-				_.defer(window.updateScores);
-			}, this);
+		},
+
+		dispose: function() {
+			this.destroy();
+			this.off();
 		},
 
         // todo validation for scores and results

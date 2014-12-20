@@ -3,7 +3,6 @@ $(function () {
 		tagName: 'tbody',
 
 		initialize: function () {
-			this.collection.on('add', this.addOne, this);
 		},
 
 		render: function () {
@@ -15,6 +14,12 @@ $(function () {
 		addOne: function (player) {
 			var playerView = new App.View.Player({model: player});
 			this.$el.append(playerView.render().el);
+		},
+
+		remove: function() {
+			this.undelegateEvents();
+			this.$el.empty();
+			this.unbind();
 		}
 	});
 });

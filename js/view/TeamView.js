@@ -1,11 +1,13 @@
 $(function () {
+
+	//\\\\ renders take memory?
+	//	\\\\ check each destroy of collection
+	//\\\\ check initialize run on views
 	App.View.Team = Backbone.View.extend({
 		initialize: function () {
 			this.playerCollectionView = new App.View.PlayerCollection({collection: this.model.getPlayers()});
-			this.model.on('change', this.render, this);
-			this.model.getPlayers().on('change', this.render, this);
-			this.model.on('playersReset', this.render, this);
-			this.model.on('destroy', this.remove, this);
+			this.listenTo(this.model, 'change', _.bind(this.render, this));
+			this.listenTo(this.model.getPlayers(), 'change', _.bind(this.render, this));
 		},
 
 		tagName: 'li',
@@ -26,14 +28,18 @@ $(function () {
 		},
 
 		remove: function () {
-			this.$el.remove();
+			this.undelegateEvents();
+			this.stopListening();
+			this.playerCollectionView.remove();
+			this.$el.empty();
+			this.unbind();
 			return this;
 		},
 
 		events: {
 			'change .js-team-name': 'editName',
 			'change .js-team-color': 'editColor',
-			'click .js-team-delete-button': 'destroy'
+			'click .js-team-delete-button': 'dispose'
 		},
 
 		editName: function () {
@@ -49,8 +55,14 @@ $(function () {
 			this.render();
 		},
 
-		destroy: function () {
-			this.model.destroy();
+		dispose: function (e) {
+			e.preventDefault();
+			this.model.dispose({success: _.bind(function(model, response) {
+				this.remove();
+				console.log('Команда удалена');
+			}, this), error: function() {
+				console.log('Команда не удалена');
+			}});
 		}
 	});
 });

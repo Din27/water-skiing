@@ -124,3 +124,7 @@ body {
 .team tfoot {
 	border-top: 2px solid #ccc;
 }
+
+.team-add-container {
+	margin-top: 10px;
+}

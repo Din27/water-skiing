@@ -1,16 +1,15 @@
 $(function () {
 	new App.Router();
-	Backbone.history.start();
+	Backbone.history.start(); // todo del
 
-	window.teams = new App.Collection.Team();
-	window.teams.fetch();
-	window.updateScores();
+	window.competitions = new App.Collection.Competition();
+	window.competitions.fetch();
+	if (window.competitions.length == 0) {
+		window.competitions.add(new App.Model.Competition({name: 'Общее'}));
+	};
 
-	var teamsView = new App.View.TeamCollection({collection: teams});
-	$('.teams').html(teamsView.render().el);
-
-	var addTeamView = new App.View.AddTeam({collection: teams});
-	addTeamView.render();
+	var competitionsView = new App.View.CompetitionCollection({collection: competitions});
+	competitionsView.render();
 	
 	// TODO uncomment when everything is ready. For testing this is too annoying :D
 	/*
