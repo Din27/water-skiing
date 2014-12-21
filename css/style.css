@@ -52,9 +52,6 @@ body {
 	border-bottom-color: #ccc !important;
 }
 
-.team .col {
-}
-
 .team .col-name {
 	width: 20%;
 }
@@ -76,7 +73,7 @@ body {
 	width: 8%;
 }
 
-.team .col-after-divide {
+.col-after-divide {
 	border-left: 2px solid #ccc;
 }
 
@@ -94,7 +91,8 @@ body {
 }
 
 .team .player-overall-score,
-.team .team-event-score {
+.team .team-event-score,
+.top-players .top-player-event-score {
 	background-color: rgb(220, 220, 220);
 	color: rgb(80, 80, 80);
 	border-color: rgb(190, 190, 190);
@@ -107,7 +105,8 @@ body {
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.team .team-overall-score {
+.team .team-overall-score,
+.top-players .top-player-overall-score {
 	font-weight: bold;
 	background-color: rgb(240, 195, 190);
 	color: rgb(90, 50, 40);
@@ -126,5 +125,32 @@ body {
 }
 
 .team-add-container {
-	margin-top: 10px;
+	margin: 10px 0;
+}
+
+.top-players-container {
+	margin-top: 40px;
+}
+
+.top-players {
+	margin-bottom: 5px;
+}
+
+
+
+.top-players .col-team {
+	width: 16%;
+}
+.top-players .col-name {
+	width: 20%;
+}
+.top-players .col-gender {
+	width: 6%;
+}
+.top-players .col-slalom {
+	width: 10%;
+}
+.top-players .col-score,
+.top-players .col-result {
+	width: 8%;
 }

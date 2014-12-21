@@ -21,5 +21,7 @@ $(function () {
 			this.$el.empty();
 			this.unbind();
 		}
+
+		// todo remove views after rerendering?
 	});
 });

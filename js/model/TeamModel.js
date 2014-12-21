@@ -9,12 +9,12 @@ $(function () {
 			colorIndex: 0
 		},
 
-		initialize: function () {
+		initialize: function (attrs) {
 			var defaultPlayers = new App.Collection.Player([
-				{ name: "Лыжник 1", gender: "M" },
-				{ name: "Лыжник 2", gender: "M" },
-				{ name: "Лыжник 3", gender: "M" },
-				{ name: "Лыжник 4", gender: "M" }
+				{ name: "Лыжник 1", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
+				{ name: "Лыжник 2", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
+				{ name: "Лыжник 3", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
+				{ name: "Лыжник 4", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex }
 			]);
 			if (!this.getPlayers()) {
 				this.setPlayers(defaultPlayers);
@@ -45,6 +45,9 @@ $(function () {
 		},
 
 		setName: function (name) {
+			this.getPlayers().each(function(player) {
+				player.setTeamName(name);
+			});
 			return this.set({name: name}, {validate: true});
 		},
 
@@ -95,6 +98,9 @@ $(function () {
 		},
 
 		setColorIndex: function (colorIndex) {
+			this.getPlayers().each(function(player) {
+				player.setColorIndex(colorIndex);
+			});
 			return this.set({colorIndex: colorIndex}, {validate: true});
 		},
 

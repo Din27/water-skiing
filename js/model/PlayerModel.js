@@ -3,6 +3,8 @@ $(function () {
 		defaults: {
 			name: '',
 			gender: '',
+			teamName: '',
+			colorIndex: '',
 
 			slalomTrackIndex: 0, // index of track from SlalomData.js
 			slalomBuoysIndex: 0, // index of buoys from SlalomData.js
@@ -36,6 +38,9 @@ $(function () {
 		validate: function (attrs) {
 			if (!$.trim(attrs.name)) {
 				return 'Имя спортсмена не должно быть пустым';
+			}
+			if (!$.trim(attrs.teamName)) {
+				return 'Имя команлы спортсмена не должно быть пустым';
 			}
 			if (attrs.gender !== "M" && attrs.gender !== "F" ) {
 				return 'Нужно выбрать пол спортсмену';
@@ -160,6 +165,22 @@ $(function () {
 
 		getOverallScore: function () {
 			return this.get('overallScore');
+		},
+
+		setTeamName: function (teamName) {
+			return this.set({teamName: teamName}, {validate: true});
+		},
+
+		getTeamName: function () {
+			return this.get('teamName');
+		},
+
+		setColorIndex: function (colorIndex) {
+			return this.set({colorIndex: colorIndex}, {validate: true});
+		},
+
+		getColorIndex: function () {
+			return this.get('colorIndex');
 		}
 	});
 });
