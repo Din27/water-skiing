@@ -1,8 +1,5 @@
 $(function () {
 
-	//\\\\ renders take memory?
-	//	\\\\ check each destroy of collection
-	//\\\\ check initialize run on views
 	App.View.Team = Backbone.View.extend({
 		initialize: function () {
 			this.playerCollectionView = new App.View.PlayerCollection({collection: this.model.getPlayers()});

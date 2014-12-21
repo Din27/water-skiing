@@ -1,7 +1,8 @@
 $(function () {
 	App.Model.Competition = Backbone.Model.extend({
 		defaults: {
-			name: ''
+			name: '',
+			tabName: ''
 		},
 
 		initialize: function () {
@@ -10,7 +11,7 @@ $(function () {
 			}
 
 			this.bindEvents();
-			_.defer(_.bind(this.updateScores, this));
+			_.defer(_.bind(this.updateScoresAndSave, this));
 		},
 
 		dispose: function () {
@@ -42,29 +43,32 @@ $(function () {
 			if (!$.trim(attrs.name)) {
 				return 'Имя соревнования не должно быть пустым';
 			}
+			if (!$.trim(attrs.tabName)) {
+				return 'Имя вкладки соревнования не должно быть пустым';
+			}
 		},
 
 		bindEvents: function() {
-			var updateScoresAndSave = _.bind(function() {
-				this.updateScores();
-				this.save(null, {success: function() {
-					console.log('Соревнование сохранено');
-				}, error: function() {
-					console.log('Соревнование не сохранено');
-				}});
-			}, this);
-
 			this.getTeams().on('add change:colorIndex change:name destroy playersChanged', function() {
-				_.defer(updateScoresAndSave);
+				_.defer(_.bind(this.updateScoresAndSave, this));
 			}, this);
 			this.on('change', function() {
-				_.defer(updateScoresAndSave);
+				_.defer(_.bind(this.updateScoresAndSave, this));
 			}, this);
 
 			// invalid case
 			this.on('invalid', function (model, error) {
 				console.log('Ошибка валидации: ' + error);
 			});
+		},
+
+		updateScoresAndSave: function() {
+			this.updateScores();
+			this.save(null, {success: function() {
+				console.log('Соревнование сохранено');
+			}, error: function() {
+				console.log('Соревнование не сохранено');
+			}});
 		},
 
 		updateScores: function() {
@@ -156,6 +160,14 @@ $(function () {
 
 		getName: function () {
 			return this.get('name');
+		},
+
+		setTabName: function (tabName) {
+			return this.set({tabName: tabName}, {validate: true});
+		},
+
+		getTabName: function () {
+			return this.get('tabName');
 		},
 
 		setTeams: function(teams) {
