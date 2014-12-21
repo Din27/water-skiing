@@ -15,6 +15,7 @@ $(function () {
 		},
 
 		dispose: function () {
+			this.getTeams().dispose();
 			this.destroy();
 			this.off();
 		},
