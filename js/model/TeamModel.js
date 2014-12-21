@@ -18,13 +18,6 @@ $(function () {
 			]);
 			if (!this.getPlayers()) {
 				this.setPlayers(defaultPlayers);
-			} else {
-				// todo only with if undefined? remove later?
-				// already loaded from localStorage, fix for old data
-				this.getPlayers().each(_.bind(function(player) {
-					player.setColorIndex(this.getColorIndex());
-					player.setTeamName(this.getName());
-				}, this));
 			}
 
 			// invalid case

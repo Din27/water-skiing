@@ -4,7 +4,10 @@ $(function () {
 
 	window.competitions = new App.Collection.Competition();
 	window.competitions.fetch();
-	if (window.competitions.length < 4) {
+	if (
+		window.competitions.length < 4 ||
+		(window.competitions.length > 0 && window.competitions.first().getTeams().length > 0 && _.isUndefined(window.competitions.first().getTeams().getPlayers().first().getColorIndex()))
+	) {
 		var competition;
 		while (competition = window.competitions.first()) {
 			competition.dispose();
