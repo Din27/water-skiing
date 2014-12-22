@@ -7,11 +7,6 @@ p {
 	color: #005500;
 }
 
-.team input,
-.top-players input {
-	color: rgb(85, 85, 85);
-}
-
 h3 {
 	margin: 10px 0 5px;
 }
@@ -99,7 +94,7 @@ body {
 .team .team-event-score,
 .top-players .top-player-event-score {
 	background-color: rgb(220, 220, 220);
-	color: rgb(80, 80, 80);
+	color: rgb(55, 55, 55);
 	border-color: rgb(190, 190, 190);
 	outline: 0;
 	outline: thin dotted \9;
