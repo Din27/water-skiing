@@ -16,6 +16,10 @@ h3 {
 	color: rgb(35, 35, 35);
 }
 
+.dark-text-color {
+	color: rgb(25, 25, 25);
+}
+
 hr.team-divider {
 	border-top: 2px solid #777;
 	margin: 0;

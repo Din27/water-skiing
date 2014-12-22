@@ -216,34 +216,34 @@
 
 	<script type="text/template" id="topPlayerTemplate">
 		<td class="col col-team">
-			<input type="text" class="form-control input-sm" disabled value="<%= teamName %>"/>
+			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= teamName %>"/>
 		</td>
 		<td class="col col-name">
-			<input type="text" class="form-control input-sm" disabled value="<%= name %>"/>
+			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= name %>"/>
 		</td>
 		<td class="col col-gender">
-			<input type="text" class="form-control input-sm" disabled value="<%= (gender === "M") ? 'М' : 'Ж' %>"/>
+			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= (gender === "M") ? 'М' : 'Ж' %>"/>
 		</td>
 		<!--slalom-->
 		<td class="col col-slalom col-after-divide">
-			<input type="text" class="form-control input-sm" disabled value="<%= window.SLALOM_BUOYS[slalomBuoysIndex].toFixed(2) %> / <%= (gender === "M") ? window.SLALOM_TRACKS.MEN[slalomTrackIndex] : window.SLALOM_TRACKS.WOMEN[slalomTrackIndex]%>"/>
+			<input type="text" class="form-control input-sm dark-color-text dark-color-text" disabled value="<%= window.SLALOM_BUOYS[slalomBuoysIndex].toFixed(2) %> / <%= (gender === "M") ? window.SLALOM_TRACKS.MEN[slalomTrackIndex] : window.SLALOM_TRACKS.WOMEN[slalomTrackIndex]%>"/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm top-player-event-score" disabled value="<%= slalomScore.toFixed(2) %>"/>
+			<input type="text" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= slalomScore.toFixed(2) %>"/>
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
-			<input type="text" class="form-control input-sm" disabled value="<%= tricksResult %>"/>
+			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= tricksResult %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm top-player-event-score" disabled value="<%= tricksScore.toFixed(2) %>"/>
+			<input type="text" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= tricksScore.toFixed(2) %>"/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
-			<input type="text" class="form-control input-sm" disabled value="<%= jumpResult %>"/>
+			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= jumpResult %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="text" class="form-control input-sm top-player-event-score" disabled value="<%= jumpScore.toFixed(2) %>"/>
+			<input type="text" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= jumpScore.toFixed(2) %>"/>
 		</td>
 		<!--overall-->
 		<td class="col col-score col-after-divide">
