@@ -7,6 +7,10 @@ p {
 	color: #005500;
 }
 
+input {
+	color: rgb(85, 85, 85);
+}
+
 h3 {
 	margin: 10px 0 5px;
 }
