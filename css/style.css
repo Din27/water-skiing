@@ -11,6 +11,11 @@ h3 {
 	margin: 10px 0 5px;
 }
 
+.team input,
+.top-players input {
+	color: rgb(35, 35, 35);
+}
+
 hr.team-divider {
 	border-top: 2px solid #777;
 	margin: 0;
@@ -79,7 +84,7 @@ body {
 
 .team tbody .in-team-score {
 	background-color: rgb(215, 238, 215);
-	color: rgb(40, 85, 40);
+	color: rgb(30, 60, 30);
 	border-color: rgb(155, 204, 155);
 	outline: 0;
 	outline: thin dotted \9;
@@ -94,7 +99,7 @@ body {
 .team .team-event-score,
 .top-players .top-player-event-score {
 	background-color: rgb(220, 220, 220);
-	color: rgb(55, 55, 55);
+	color: rgb(35, 35, 35);
 	border-color: rgb(190, 190, 190);
 	outline: 0;
 	outline: thin dotted \9;
@@ -109,7 +114,7 @@ body {
 .top-players .top-player-overall-score {
 	font-weight: bold;
 	background-color: rgb(240, 195, 190);
-	color: rgb(90, 50, 40);
+	color: rgb(60, 40, 35);
 	border-color: rgb(195, 165, 155);
 	outline: 0;
 	outline: thin dotted \9;
