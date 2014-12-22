@@ -45,6 +45,12 @@ $(function () {
 			if (attrs.gender !== "M" && attrs.gender !== "F" ) {
 				return 'Нужно выбрать пол спортсмену';
 			}
+			if (typeof attrs.tricksResult !== 'number' || _.isNaN (attrs.tricksResult) || attrs.tricksResult < 0) {
+				return 'Результат фигурного катания должен быть положительным числом';
+			}
+			if (typeof attrs.jumpResult !== 'number' || _.isNaN (attrs.jumpResult) || attrs.jumpResult < 0) {
+				return 'Результат трамплина должен быть положительным числом';
+			}
 		},
 
 		updateSlalomResult: function () {
