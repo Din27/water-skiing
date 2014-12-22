@@ -34,7 +34,6 @@ $(function () {
 			this.off();
 		},
 
-        // todo validation for scores and results
 		validate: function (attrs) {
 			if (!$.trim(attrs.name)) {
 				return 'Имя спортсмена не должно быть пустым';
