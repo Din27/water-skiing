@@ -1,16 +1,16 @@
 $(function () {
 	new App.Router();
 
-	window.appVersion = 10;
-	window.appLocalStorageVersionKey = 'water-skiing-version';
+	window.APP_VERSION = 11;
+	window.APP_LOCAL_STORAGE_VERSION_KEY = 'water-skiing-version';
 
-	var localStorageAppVersion = +localStorage.getItem(appLocalStorageVersionKey);
+	var localStorageAppVersion = +localStorage.getItem(APP_LOCAL_STORAGE_VERSION_KEY);
 
 	window.competitions = new App.Collection.Competition();
-	if (localStorageAppVersion == window.appVersion) {
+	if (localStorageAppVersion == window.APP_VERSION) {
 		window.competitions.fetch({sort: false});
 	}
-	if (localStorageAppVersion != window.appVersion || window.competitions.length < 7) {
+	if (localStorageAppVersion != window.APP_VERSION || window.competitions.length < 7) {
 		var competition;
 		while (competition = window.competitions.first()) {
 			competition.dispose();
@@ -35,7 +35,7 @@ $(function () {
 		window.competitions.add(new App.Model.Competition({name: 'CBL U15', tabName: 'cableski-u15',
 			slalomMenStartSpeed: 40, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 37, slalomWomenTopSpeed: 55}), {sort: false})
 
-		localStorage.setItem(appLocalStorageVersionKey, window.appVersion);
+		localStorage.setItem(APP_LOCAL_STORAGE_VERSION_KEY, window.APP_VERSION);
 	}
 
 
