@@ -15,6 +15,22 @@ h3 {
 	margin-right: 40px;
 }
 
+.records {
+	width: 35%;
+}
+
+.records th {
+	padding-left: 8px !important;
+}
+
+.col-records-gender {
+	width: 22%;
+}
+
+.col-records-result {
+	width: 26%;
+}
+
 .team input,
 .top-players input {
 	color: rgb(35, 35, 35);

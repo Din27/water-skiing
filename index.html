@@ -61,6 +61,50 @@
 	</script>
 
 	<script type="text/template" id="competitionTemplate">
+		<% if (competitionType === window.COMPETITION_TYPES.EUROPE) { %>
+		<h3>Рекорды</h3>
+		<table class="records js-records table table-condensed">
+			<thead>
+				<tr>
+					<th>Пол</th>
+					<th class="col-after-divide">Слалом</th>
+					<th>Фигурное катание</th>
+					<th>Трамплин</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td class="col-records-gender">
+						<input type="text" value="M" disabled class="form-control input-sm"/>
+					</td>
+					<td class="col-records-result col-after-divide">
+						<input type="number" value="<%= worldRecordSlalomMen.toFixed(2) %>" class="form-control input-sm world-record-slalom-men"/>
+					</td>
+					<td class="col-records-result">
+						<input type="number" value="<%= worldRecordTricksMen.toFixed(2) %>" class="form-control input-sm world-record-tricks-men"/>
+					</td>
+					<td class="col-records-result">
+						<input type="number" value="<%= worldRecordJumpMen.toFixed(2) %>" class="form-control input-sm world-record-jump-men"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" value="Ж" disabled class="form-control input-sm"/>
+					</td>
+					<td class="col-after-divide">
+						<input type="number" value="<%= worldRecordSlalomWomen.toFixed(2) %>" class="form-control input-sm world-record-slalom-women"/>
+					</td>
+					<td>
+						<input type="number" value="<%= worldRecordTricksWomen.toFixed(2) %>" class="form-control input-sm world-record-tricks-women"/>
+					</td>
+					<td>
+						<input type="number" value="<%= worldRecordJumpWomen.toFixed(2) %>" class="form-control input-sm world-record-jump-women"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<% } %>
+
 		<h3>Команды</h3>
 		<hr class="team-divider"/>
 		<div class="js-teams teams">
