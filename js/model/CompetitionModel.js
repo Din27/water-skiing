@@ -2,7 +2,14 @@ $(function () {
 	App.Model.Competition = Backbone.Model.extend({
 		defaults: {
 			name: '',
-			tabName: ''
+			tabName: '',
+			version: 0,
+			slalomMenStartSpeed: 0,
+			slalomMenTopSpeed: 0,
+			slalomMenTracks: [],
+			slalomWomenStartSpeed: 0,
+			slalomWomenTopSpeed: 0,
+			slalomWomenTracks: []
 		},
 
 		initialize: function () {
@@ -10,8 +17,27 @@ $(function () {
 				this.setTeams(new App.Collection.Team());
 			}
 
+			this.setSlalomMenTracks(this.generateSlalomTracks(this.getSlalomMenStartSpeed(), this.getSlalomMenTopSpeed()));
+			this.setSlalomWomenTracks(this.generateSlalomTracks(this.getSlalomWomenStartSpeed(), this.getSlalomWomenTopSpeed()));
+
 			this.bindEvents();
 			_.defer(_.bind(this.updateScoresAndSave, this));
+		},
+
+		generateSlalomTracks: function (startSpeed, topSpeed) {
+			var tracks = [];
+			var i = 0;
+			for (var speed = startSpeed; speed < topSpeed; speed += window.SLALOM_SPEED_STEP) {
+				tracks[i] = "" + speed;
+				i++;
+			}
+			for (var lengthIndex = 0;
+				 lengthIndex < window.SLALOM_LENGTHS.length;
+				 lengthIndex++) {
+				tracks[i] = "" + speed + " / " + window.SLALOM_LENGTHS[lengthIndex].toFixed(2);
+				i++;
+			}
+			return tracks;
 		},
 
 		dispose: function () {
@@ -177,6 +203,54 @@ $(function () {
 
 		getTeams: function() {
 			return this.get('teams');
+		},
+
+		setSlalomMenStartSpeed: function(slalomMenStartSpeed) {
+			return this.set({slalomMenStartSpeed: slalomMenStartSpeed});
+		},
+
+		getSlalomMenStartSpeed: function() {
+			return this.get('slalomMenStartSpeed');
+		},
+
+		setSlalomMenTopSpeed: function(slalomMenTopSpeed) {
+			return this.set({slalomMenTopSpeed: slalomMenTopSpeed});
+		},
+
+		getSlalomMenTopSpeed: function() {
+			return this.get('slalomMenTopSpeed');
+		},
+
+		setSlalomWomenStartSpeed: function(slalomWomenStartSpeed) {
+			return this.set({slalomWomenStartSpeed: slalomWomenStartSpeed});
+		},
+
+		getSlalomWomenStartSpeed: function() {
+			return this.get('slalomWomenStartSpeed');
+		},
+
+		setSlalomWomenTopSpeed: function(slalomWomenTopSpeed) {
+			return this.set({slalomWomenTopSpeed: slalomWomenTopSpeed});
+		},
+
+		getSlalomWomenTopSpeed: function() {
+			return this.get('slalomWomenTopSpeed');
+		},
+
+		setSlalomMenTracks: function(slalomMenTracks) {
+			return this.set({slalomMenTracks: slalomMenTracks});
+		},
+
+		getSlalomMenTracks: function() {
+			return this.get('slalomMenTracks');
+		},
+
+		setSlalomWomenTracks: function(slalomWomenTracks) {
+			return this.set({slalomWomenTracks: slalomWomenTracks});
+		},
+
+		getSlalomWomenTracks: function() {
+			return this.get('slalomWomenTracks');
 		}
 	});
 });

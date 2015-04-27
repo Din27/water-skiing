@@ -6,7 +6,8 @@ $(function() {
 
 		className: 'top-players',
 
-		initialize: function () {
+		initialize: function (options) {
+			_.extend(this, _.pick(options, "slalomMenTracks", "slalomWomenTracks"));
 			this.topPlayerViews = [];
 		},
 
@@ -25,7 +26,7 @@ $(function() {
 			});
 			var sortedPlayers = _.sortBy(allPlayers, function(player) { return - player.getOverallScore(); });
 			_.each(sortedPlayers, _.bind(function(player) {
-				var topPlayerView = new App.View.TopPlayer({model: player});
+				var topPlayerView = new App.View.TopPlayer({model: player, slalomMenTracks: this.slalomMenTracks, slalomWomenTracks: this.slalomWomenTracks});
 				this.topPlayerViews.push(topPlayerView);
 				this.$el.find('tbody').append(topPlayerView.render().el);
 			}, this));

@@ -1,8 +1,9 @@
 $(function () {
 
 	App.View.Team = Backbone.View.extend({
-		initialize: function () {
-			this.playerCollectionView = new App.View.PlayerCollection({collection: this.model.getPlayers()});
+		initialize: function (options) {
+			this.playerCollectionView = new App.View.PlayerCollection({collection: this.model.getPlayers(),
+				slalomMenTracks: options.slalomMenTracks, slalomWomenTracks: options.slalomWomenTracks});
 			this.listenTo(this.model, 'change', _.bind(this.render, this));
 			this.listenTo(this.model.getPlayers(), 'change', _.bind(this.render, this));
 		},

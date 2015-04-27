@@ -11,6 +11,10 @@ h3 {
 	margin: 10px 0 5px;
 }
 
+.competition-tabs li:nth-child(4) {
+	margin-right: 40px;
+}
+
 .team input,
 .top-players input {
 	color: rgb(35, 35, 35);

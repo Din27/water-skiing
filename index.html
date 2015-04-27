@@ -143,8 +143,8 @@
 		<td class="col col-slalom-slash">/</td>
 		<td class="col col-slalom-track">
 			<select class="player-slalom-track js-player-slalom-track form-control input-sm">
-				<% for (var i = 0; i < window.SLALOM_TRACKS.MEN.length; i++) { %>
-				<option value="<%= i %>" <%= (i == slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? window.SLALOM_TRACKS.MEN[i] : window.SLALOM_TRACKS.WOMEN[i] %></option>
+				<% for (var i = 0; i < slalomMenTracks.length; i++) { %>
+				<option value="<%= i %>" <%= (i == slalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? slalomMenTracks[i] : slalomWomenTracks[i] %></option>
 				<% } %>
 			</select>
 		</td>
@@ -226,7 +226,7 @@
 		</td>
 		<!--slalom-->
 		<td class="col col-slalom col-after-divide">
-			<input type="text" class="form-control input-sm dark-color-text dark-color-text" disabled value="<%= window.SLALOM_BUOYS[slalomBuoysIndex].toFixed(2) %> / <%= (gender === "M") ? window.SLALOM_TRACKS.MEN[slalomTrackIndex] : window.SLALOM_TRACKS.WOMEN[slalomTrackIndex]%>"/>
+			<input type="text" class="form-control input-sm dark-color-text dark-color-text" disabled value="<%= window.SLALOM_BUOYS[slalomBuoysIndex].toFixed(2) %> / <%= (gender === "M") ? slalomMenTracks[slalomTrackIndex] : slalomWomenTracks[slalomTrackIndex] %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="text" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= slalomScore.toFixed(2) %>"/>

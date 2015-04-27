@@ -2,7 +2,8 @@ $(function () {
 	App.View.TeamCollection = Backbone.View.extend({
 		tagName: 'ul',
 
-		initialize: function () {
+		initialize: function (options) {
+			_.extend(this, _.pick(options, "slalomMenTracks", "slalomWomenTracks"));
 			this.teamViews = [];
 			this.collection.on('add', this.render, this);
 		},
@@ -17,7 +18,7 @@ $(function () {
 		},
 
 		addOne: function (team) {
-			var teamView = new App.View.Team({model: team});
+			var teamView = new App.View.Team({model: team, slalomMenTracks: this.slalomMenTracks, slalomWomenTracks: this.slalomWomenTracks});
 			this.teamViews.push(teamView);
 			this.$el.append(teamView.render().el);
 		},

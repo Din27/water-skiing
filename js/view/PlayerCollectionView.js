@@ -2,7 +2,8 @@ $(function () {
 	App.View.PlayerCollection = Backbone.View.extend({
 		tagName: 'tbody',
 
-		initialize: function () {
+		initialize: function (options) {
+			_.extend(this, _.pick(options, "slalomMenTracks", "slalomWomenTracks"));
 		},
 
 		render: function () {
@@ -12,7 +13,7 @@ $(function () {
 		},
 
 		addOne: function (player) {
-			var playerView = new App.View.Player({model: player});
+			var playerView = new App.View.Player({model: player, slalomMenTracks: this.slalomMenTracks, slalomWomenTracks: this.slalomWomenTracks});
 			this.$el.append(playerView.render().el);
 		},
 

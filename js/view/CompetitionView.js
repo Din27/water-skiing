@@ -3,8 +3,8 @@ $(function () {
 		//todo remove events here, dispose
 		initialize: function () {
 			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams()});
-			this.teamCollectionView = new App.View.TeamCollection({collection: this.model.getTeams()});
-			this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams()});
+			this.teamCollectionView = new App.View.TeamCollection({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
+			this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
 			this.model.on('teamsReset', this.render, this);
 			this.model.on('destroy', this.remove, this);
 		},
@@ -23,7 +23,7 @@ $(function () {
 
 			this.topPlayersView.remove();
 			if (this.model.getTeams().length > 0) {
-				this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams()});
+				this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
 				this.$el.find('.js-top-players-container').html(this.topPlayersView.render().el);
 			}
 			return this;

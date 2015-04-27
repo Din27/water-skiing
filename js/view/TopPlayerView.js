@@ -4,11 +4,13 @@ $(function() {
 
 		tagName: 'tr',
 
-		initialize: function() {
+		initialize: function(options) {
+			_.extend(this, _.pick(options, "slalomMenTracks", "slalomWomenTracks"));
 		},
 
 		render: function() {
-			this.$el.html(this.template(this.model.toJSON()));
+			var template = this.template(_.extend(this.model.toJSON(), {slalomMenTracks: this.slalomMenTracks, slalomWomenTracks: this.slalomWomenTracks}));
+			this.$el.html(template);
 			this.$el.css('background-color', window.TEAM_COLORS[this.model.getColorIndex()].color);
 			return this;
 		},

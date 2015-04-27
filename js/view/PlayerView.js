@@ -25,11 +25,12 @@ $(function () {
 			return _events;
 		},
 
-		initialize: function () {
+		initialize: function (options) {
+			_.extend(this, _.pick(options, "slalomMenTracks", "slalomWomenTracks"));
 		},
 
 		render: function () {
-			var template = this.template(this.model.toJSON());
+			var template = this.template(_.extend(this.model.toJSON(), {slalomMenTracks: this.slalomMenTracks, slalomWomenTracks: this.slalomWomenTracks}));
 			this.$el.html(template);
 			return this;
 		},
