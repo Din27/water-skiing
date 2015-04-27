@@ -33,7 +33,7 @@ $(function () {
 			for (var lengthIndex = 0;
 				 lengthIndex < window.SLALOM_LENGTHS.length;
 				 lengthIndex++) {
-				tracks[i] = "" + speed + " / " + window.SLALOM_LENGTHS[lengthIndex].toFixed(2);
+				tracks[i] = "" + speed + " / " + window.SLALOM_LENGTHS[lengthIndex];
 				i++;
 			}
 			return tracks;
