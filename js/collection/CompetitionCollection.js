@@ -6,6 +6,6 @@ $(function () {
             return competition.getTabName();
         },
 
-        localStorage: new Backbone.LocalStorage("water-skiing-competitions")
+        localStorage: new Backbone.LocalStorage('water-skiing-competitions')
     });
 });

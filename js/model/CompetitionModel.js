@@ -3,7 +3,6 @@ $(function () {
 		defaults: {
 			name: '',
 			tabName: '',
-			version: 0,
 			slalomMenStartSpeed: 0,
 			slalomMenTopSpeed: 0,
 			slalomMenTracks: [],
