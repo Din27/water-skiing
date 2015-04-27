@@ -1,18 +1,19 @@
 $(function () {
 	new App.Router();
 
-	window.appVersion = 2;
+	window.appVersion = 3;
+
+	var localStorageAppVersion = +localStorage.getItem('water-skiing-version');
 
 	window.competitions = new App.Collection.Competition();
-	window.competitions.fetch({sort: false});
-	if (
-		window.competitions.length < 7 ||
-		(window.competitions.length > 0 && window.competitions.first().get('version') !== window.appVersion)
-	) {
+	if (localStorageAppVersion == window.appVersion) {
+		window.competitions.fetch({sort: false});
+	}
+	if (localStorageAppVersion != window.appVersion || window.competitions.length < 7) {
 		var competition;
 		while (competition = window.competitions.first()) {
 			competition.dispose();
-		};
+		}
 		window.competitions.add(new App.Model.Competition({name: 'EUR Open', tabName: 'europe-open', version: window.appVersion,
 			slalomMenStartSpeed: 58, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 55, slalomWomenTopSpeed: 55}), {sort: false});
 		window.competitions.add(new App.Model.Competition({name: 'EUR U21', tabName: 'europe-u21', version: window.appVersion,
@@ -27,7 +28,9 @@ $(function () {
 			slalomMenStartSpeed: 43, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 40, slalomWomenTopSpeed: 55}), {sort: false});
 		window.competitions.add(new App.Model.Competition({name: 'CBL U15', tabName: 'cableski-u15', version: window.appVersion,
 			slalomMenStartSpeed: 40, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 37, slalomWomenTopSpeed: 55}), {sort: false});
-	};
+	}
+
+	localStorage.setItem('water-skiing-version', window.appVersion);
 
 	var competitionsView = new App.View.CompetitionCollection({collection: competitions});
 	competitionsView.render();

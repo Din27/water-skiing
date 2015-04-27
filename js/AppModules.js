@@ -1,6 +1,4 @@
 $(function () {
-	localStorage.clear(); // TODO
-
 	window.App = {
 		Model: {},
 		Collection: {},
