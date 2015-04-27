@@ -15,8 +15,16 @@ h3 {
 	margin-right: 40px;
 }
 
-.records {
+.records-container {
+	margin-bottom: 40px;
+}
+
+.records-container {
 	width: 50%;
+}
+
+.records {
+	margin: 5px 0;
 }
 
 .records th {
