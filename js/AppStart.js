@@ -1,7 +1,7 @@
 $(function () {
 	new App.Router();
 
-	window.APP_VERSION = 11;
+	window.APP_VERSION = 12;
 	window.APP_LOCAL_STORAGE_VERSION_KEY = 'water-skiing-version';
 
 	var localStorageAppVersion = +localStorage.getItem(APP_LOCAL_STORAGE_VERSION_KEY);
@@ -16,24 +16,71 @@ $(function () {
 			competition.dispose();
 		}
 
-		localStorage.clear(); // TODO is it ok to clear whole localStorage?
 		// "Local storage is per domain. All pages, from one domain, can store and access the same data."
 		// removeKey does not work since backbone localStorage saves many items there in a random way.
+		// TODO is it ok to clear whole localStorage?
+		localStorage.clear();
 
-		window.competitions.add(new App.Model.Competition({name: 'EUR Open', tabName: 'europe-open',
-			slalomMenStartSpeed: 58, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 55, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'EUR U21', tabName: 'europe-u21',
-			slalomMenStartSpeed: 55, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 52, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'EUR U17', tabName: 'europe-u17',
-			slalomMenStartSpeed: 52, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 49, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'EUR U14', tabName: 'europe-u14',
-			slalomMenStartSpeed: 49, slalomMenTopSpeed: 55, slalomWomenStartSpeed: 46, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'CBL Open', tabName: 'cableski-open',
-			slalomMenStartSpeed: 46, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 43, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'CBL U19', tabName: 'cableski-u19',
-			slalomMenStartSpeed: 43, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 40, slalomWomenTopSpeed: 55}), {sort: false});
-		window.competitions.add(new App.Model.Competition({name: 'CBL U15', tabName: 'cableski-u15',
-			slalomMenStartSpeed: 40, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 37, slalomWomenTopSpeed: 55}), {sort: false})
+		//europe
+		window.competitions.add(
+			new App.Model.Competition({name: 'EUR Open', tabName: 'europe-open',
+				slalomMenStartSpeed: 58, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 55, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 25, jumpWomenDeduction: 17,
+				competitionType: window.COMPETITION_TYPES.EUROPE,
+				worldRecordSlalomMen: 49, worldRecordSlalomWomen: 43,
+				worldRecordTricksMen: 11680, worldRecordTricksWomen: 8580,
+				worldRecordJumpMen: 67.8, worldRecordJumpWomen: 50.5}
+		), {sort: false});
+		window.competitions.add(
+			new App.Model.Competition({name: 'EUR U21', tabName: 'europe-u21',
+				slalomMenStartSpeed: 55, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 52, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 25, jumpWomenDeduction: 17,
+				competitionType: window.COMPETITION_TYPES.EUROPE,
+				worldRecordSlalomMen: 55, worldRecordSlalomWomen: 49,
+				worldRecordTricksMen: 11680, worldRecordTricksWomen: 8580,
+				worldRecordJumpMen: 67.8, worldRecordJumpWomen: 50.5}), {sort: false});
+		window.competitions.add(
+			new App.Model.Competition({name: 'EUR U17', tabName: 'europe-u17',
+				slalomMenStartSpeed: 52, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 49, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 10, jumpWomenDeduction: 7,
+				competitionType: window.COMPETITION_TYPES.EUROPE,
+				worldRecordSlalomMen: 51, worldRecordSlalomWomen: 44,
+				worldRecordTricksMen: 10510, worldRecordTricksWomen: 8750,
+				worldRecordJumpMen: 53.3, worldRecordJumpWomen: 44.8}), {sort: false});
+		window.competitions.add(
+			new App.Model.Competition({name: 'EUR U14', tabName: 'europe-u14',
+				slalomMenStartSpeed: 49, slalomMenTopSpeed: 55, slalomWomenStartSpeed: 46, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 10, jumpWomenDeduction: 7,
+				competitionType: window.COMPETITION_TYPES.EUROPE,
+				worldRecordSlalomMen: 47, worldRecordSlalomWomen: 44.5,
+				worldRecordTricksMen: 7990, worldRecordTricksWomen: 6580,
+				worldRecordJumpMen: 43.6, worldRecordJumpWomen: 33.3}), {sort: false});
+
+		//cableski
+		window.competitions.add(
+			new App.Model.Competition({name: 'CBL Open', tabName: 'cableski-open',
+				slalomMenStartSpeed: 46, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 43, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 15, jumpWomenDeduction: 10,
+				competitionType: window.COMPETITION_TYPES.CABELSKI,
+				worldRecordSlalomMen: 0, worldRecordSlalomWomen: 0,
+				worldRecordTricksMen: 0, worldRecordTricksWomen: 0,
+				worldRecordJumpMen: 0, worldRecordJumpWomen: 0}), {sort: false});
+		window.competitions.add(
+			new App.Model.Competition({name: 'CBL U19', tabName: 'cableski-u19',
+				slalomMenStartSpeed: 43, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 40, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 10, jumpWomenDeduction: 5,
+				competitionType: window.COMPETITION_TYPES.CABELSKI,
+				worldRecordSlalomMen: 0, worldRecordSlalomWomen: 0,
+				worldRecordTricksMen: 0, worldRecordTricksWomen: 0,
+				worldRecordJumpMen: 0, worldRecordJumpWomen: 0}), {sort: false});
+		window.competitions.add(
+			new App.Model.Competition({name: 'CBL U15', tabName: 'cableski-u15',
+				slalomMenStartSpeed: 40, slalomMenTopSpeed: 58, slalomWomenStartSpeed: 37, slalomWomenTopSpeed: 55,
+				jumpMenDeduction: 0, jumpWomenDeduction: 0,
+				competitionType: window.COMPETITION_TYPES.CABELSKI,
+				worldRecordSlalomMen: 0, worldRecordSlalomWomen: 0,
+				worldRecordTricksMen: 0, worldRecordTricksWomen: 0,
+				worldRecordJumpMen: 0, worldRecordJumpWomen: 0}), {sort: false})
 
 		localStorage.setItem(APP_LOCAL_STORAGE_VERSION_KEY, window.APP_VERSION);
 	}

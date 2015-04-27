@@ -8,7 +8,17 @@ $(function () {
 			slalomMenTracks: [],
 			slalomWomenStartSpeed: 0,
 			slalomWomenTopSpeed: 0,
-			slalomWomenTracks: []
+			slalomWomenTracks: [],
+			jumpMenDeduction: 0,
+			jumpWomenDeduction: 0,
+			
+			competitionType: window.COMPETITION_TYPES.EUROPE,
+			worldRecordSlalomMen: 0,
+			worldRecordSlalomWomen: 0,
+			worldRecordTricksMen: 0,
+			worldRecordTricksWomen: 0,
+			worldRecordJumpMen: 0,
+			worldRecordJumpWomen: 0
 		},
 
 		initialize: function () {
@@ -250,6 +260,80 @@ $(function () {
 
 		getSlalomWomenTracks: function() {
 			return this.get('slalomWomenTracks');
+		},
+
+		setJumpMenDeduction: function(jumpMenDeduction) {
+			return this.set({jumpMenDeduction: jumpMenDeduction});
+		},
+
+		getJumpMenDeduction: function() {
+			return this.get('jumpMenDeduction');
+		},
+		
+		setJumpWomenDeduction: function(jumpWomenDeduction) {
+			return this.set({jumpWomenDeduction: jumpWomenDeduction});
+		},
+
+		getJumpWomenDeduction: function() {
+			return this.get('jumpWomenDeduction');
+		},
+
+		
+		
+		setCompetitionType: function(competitionType) {
+			return this.set({competitionType: competitionType});
+		},
+
+		getCompetitionType: function() {
+			return this.get('competitionType');
+		},
+		
+		setWorldRecordSlalomMen: function(worldRecordSlalomMen) {
+			return this.set({worldRecordSlalomMen: worldRecordSlalomMen});
+		},
+
+		getWorldRecordSlalomMen: function() {
+			return this.get('worldRecordSlalomMen');
+		},
+
+		setWorldRecordSlalomWomen: function(worldRecordSlalomWomen) {
+			return this.set({worldRecordSlalomWomen: worldRecordSlalomWomen});
+		},
+
+		getWorldRecordSlalomWomen: function() {
+			return this.get('worldRecordSlalomWomen');
+		},
+
+		setWorldRecordTricksMen: function(worldRecordTricksMen) {
+			return this.set({worldRecordTricksMen: worldRecordTricksMen});
+		},
+
+		getWorldRecordTricksMen: function() {
+			return this.get('worldRecordTricksMen');
+		},
+
+		setWorldRecordTricksWomen: function(worldRecordTricksWomen) {
+			return this.set({worldRecordTricksWomen: worldRecordTricksWomen});
+		},
+
+		getWorldRecordTricksWomen: function() {
+			return this.get('worldRecordTricksWomen');
+		},
+
+		setWorldRecordJumpMen: function(worldRecordJumpMen) {
+			return this.set({worldRecordJumpMen: worldRecordJumpMen});
+		},
+
+		getWorldRecordJumpMen: function() {
+			return this.get('worldRecordJumpMen');
+		},
+
+		setWorldRecordJumpWomen: function(worldRecordJumpWomen) {
+			return this.set({worldRecordJumpWomen: worldRecordJumpWomen});
+		},
+
+		getWorldRecordJumpWomen: function() {
+			return this.get('worldRecordJumpWomen');
 		}
 	});
 });
