@@ -16,7 +16,7 @@ h3 {
 }
 
 .records {
-	width: 35%;
+	width: 50%;
 }
 
 .records th {
@@ -24,11 +24,11 @@ h3 {
 }
 
 .col-records-gender {
-	width: 22%;
+	width: 10%;
 }
 
 .col-records-result {
-	width: 26%;
+	width: 30%;
 }
 
 .team input,
