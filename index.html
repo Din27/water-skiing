@@ -156,14 +156,14 @@
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
-			<input type="text" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
+			<input type="number" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
-			<input type="text" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
+			<input type="number" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="text" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
