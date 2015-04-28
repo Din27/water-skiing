@@ -220,6 +220,19 @@ $(function () {
 			updateScoresForPlayersAndTeams(this);
 		},
 
+		getTopPlayers: function (gender) {
+			var genderPlayers = [];
+			this.getTeams().each(function (team) {
+				team.getPlayers().each(function (player) {
+					if (player.getGender() === gender) {
+						genderPlayers.push(player);
+					}
+				});
+			});
+			var sortedGenderPlayers = _.sortBy(genderPlayers, function(player) { return - player.getOverallScore(); });
+			return sortedGenderPlayers;
+		},
+
 		setName: function (name) {
 			return this.set({name: name}, {validate: true});
 		},

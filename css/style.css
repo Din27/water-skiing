@@ -176,13 +176,10 @@ body {
 
 
 .top-players .col-team {
-	width: 16%;
+	width: 18%;
 }
 .top-players .col-name {
-	width: 20%;
-}
-.top-players .col-gender {
-	width: 6%;
+	width: 24%;
 }
 .top-players .col-slalom {
 	width: 10%;

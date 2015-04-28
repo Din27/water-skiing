@@ -4,7 +4,8 @@ $(function () {
 		initialize: function () {
 			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams()});
 			this.teamCollectionView = new App.View.TeamCollection({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
-			this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
+			this.topPlayersMenView = new App.View.TopPlayers({collection: this.model.getTeams(), gender: 'M', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
+			this.topPlayersWomenView = new App.View.TopPlayers({collection: this.model.getTeams(), gender: 'W', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
 			this.model.on('teamsReset', this.render, this);
 			this.model.on('destroy', this.remove, this);
 		},
@@ -39,10 +40,19 @@ $(function () {
 			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams()});
 			this.$el.find('.js-team-add-container').html(this.addTeamView.render().el);
 
-			this.topPlayersView.remove();
-			if (this.model.getTeams().length > 0) {
-				this.topPlayersView = new App.View.TopPlayers({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
-				this.$el.find('.js-top-players-container').html(this.topPlayersView.render().el);
+			this.topPlayersMenView.remove();
+			this.topPlayersWomenView.remove();
+
+			var topPlayersMen = this.model.getTopPlayers('M');
+			if (topPlayersMen.length > 0) {
+				this.topPlayersMenView = new App.View.TopPlayers({collection: topPlayersMen, genderName: 'Мужчины', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
+				this.$el.find('.js-top-players-men-container').html(this.topPlayersMenView.render().el);
+			}
+
+			var topPlayersWomen = this.model.getTopPlayers('F');
+			if (topPlayersWomen.length > 0) {
+				this.topPlayersWomenView = new App.View.TopPlayers({collection: topPlayersWomen, genderName: 'Женщины', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
+				this.$el.find('.js-top-players-women-container').html(this.topPlayersWomenView.render().el);
 			}
 			return this;
 		},

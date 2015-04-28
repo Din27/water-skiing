@@ -117,7 +117,8 @@
 			<div class="js-team-add-container team-add-container"></div>
 			<hr class="team-divider"/>
 		</div>
-		<div class="js-top-players-container top-players-container"></div>
+		<div class="js-top-players-men-container top-players-container"></div>
+		<div class="js-top-players-women-container top-players-container"></div>
 	</script>
 
 	<script type="text/template" id="teamTemplate">
@@ -244,14 +245,13 @@
 	</script>
 
 	<script type="text/template" id="topPlayersTemplate">
-		<h3>Лыжники</h3>
+		<h3>Лыжники - <%= genderName %></h3>
 		<hr class="team-divider"/>
 		<table class="top-players js-top-players table table-condensed">
 			<thead>
 			<tr>
 				<th>Команда</th>
 				<th>Имя</th>
-				<th>Пол</th>
 				<th class="col-after-divide" colspan="2">Слалом</th>
 				<th class="col-after-divide" colspan="2">Фигурное катание</th>
 				<th class="col-after-divide" colspan="2">Трамплин</th>
@@ -270,9 +270,6 @@
 		</td>
 		<td class="col col-name">
 			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= name %>"/>
-		</td>
-		<td class="col col-gender">
-			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= (gender === "M") ? 'М' : 'Ж' %>"/>
 		</td>
 		<!--slalom-->
 		<td class="col col-slalom col-after-divide">
