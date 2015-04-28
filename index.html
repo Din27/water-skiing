@@ -125,7 +125,7 @@
 		<div class="team-container" style="background-color: <%= window.TEAM_COLORS[colorIndex].color %>">
 			<table class="team js-team table table-condensed">
 				<caption>
-					<form role="form" action="" class="team-add js-team-add form-inline">
+					<form role="form" action="" class="team-add js-team-add form-inline" onsubmit="return false;">
 						<div class="form-group">
 							<select class="js-team-color form-control input-sm">
 								<% for (var i = 0; i < window.TEAM_COLORS.length; i++) { %>
@@ -225,7 +225,7 @@
 	</script>
 
 	<script type="text/template" id="teamAddTemplate">
-		<form role="form" action="" class="team-add js-team-add form-inline">
+		<form role="form" action="" class="team-add js-team-add form-inline" onsubmit="return false;">
 			<div class="form-group">
 				<select class="js-team-color form-control input-sm">
 					<% for (var i = 0; i < window.TEAM_COLORS.length; i++) { %>
