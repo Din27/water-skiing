@@ -186,7 +186,6 @@
 		<td class="col col-slalom-buoys col-after-divide">
 			<select class="player-slalom-buoys js-player-slalom-buoys form-control input-sm">
 				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
-				<!--todo change . with , ?-->
 				<option value="<%= i %>" <%= (i == slalomBuoysIndex) ? 'selected' : '' %>><%= ('' + window.SLALOM_BUOYS[i].toFixed(2)).replace('.',',') %></option>
 				<% } %>
 			</select>
@@ -246,13 +245,14 @@
 
 	<script type="text/template" id="topPlayersTemplate">
 		<h3>Лыжники - <%= genderName %></h3>
+		<p>Здесь выводятся лучшие индивидуальные результаты каждого лыжника. Они могут совпадать, или быть выше командных результатов лыжника</p>
 		<hr class="team-divider"/>
 		<table class="top-players js-top-players table table-condensed">
 			<thead>
 			<tr>
 				<th>Команда</th>
 				<th>Имя</th>
-				<th class="col-after-divide" colspan="2">Слалом</th>
+				<th class="col-after-divide" colspan="5">Слалом</th>
 				<th class="col-after-divide" colspan="2">Фигурное катание</th>
 				<th class="col-after-divide" colspan="2">Трамплин</th>
 				<th class="col-after-divide">Всего</th>
@@ -272,29 +272,44 @@
 			<input type="text" class="form-control input-sm dark-color-text" disabled value="<%= name %>"/>
 		</td>
 		<!--slalom-->
-		<td class="col col-slalom col-after-divide">
-			<input type="text" class="form-control input-sm dark-color-text dark-color-text" disabled value="<%= ('' + window.SLALOM_BUOYS[slalomBuoysIndex].toFixed(2)).replace('.',',') %> / <%= (gender === "M") ? slalomMenTracks[slalomTrackIndex] : slalomWomenTracks[slalomTrackIndex] %>"/>
+		<td class="col col-slalom-buoys col-after-divide">
+			<select class="player-slalom-buoys js-player-individual-slalom-buoys form-control input-sm">
+				<% for (var i = 0; i < window.SLALOM_BUOYS.length; i++) { %>
+				<option value="<%= i %>" <%= (i == individualSlalomBuoysIndex) ? 'selected' : '' %>><%= ('' + window.SLALOM_BUOYS[i].toFixed(2)).replace('.',',') %></option>
+				<% } %>
+			</select>
+		</td>
+		<td class="col col-slalom-slash">/</td>
+		<td class="col col-slalom-track">
+			<select class="player-slalom-track js-player-individual-slalom-track form-control input-sm">
+				<% for (var i = 0; i < slalomMenTracks.length; i++) { %>
+				<option value="<%= i %>" <%= (i == individualSlalomTrackIndex) ? 'selected' : '' %>><%= (gender === "M") ? slalomMenTracks[i] : slalomWomenTracks[i] %></option>
+				<% } %>
+			</select>
+		</td>
+		<td class="col col-result">
+			<input type="number" class="player-slalom-result js-player-slalom-result form-control input-sm" value="<%= ('' + individualSlalomResult.toFixed(2)) %>" disabled/>
 		</td>
 		<td class="col col-score">
-			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= slalomScore.toFixed(2) %>"/>
+			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= individualSlalomScore.toFixed(2) %>"/>
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
-			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= tricksResult.toFixed(0) %>"/>
+			<input type="number" class="js-player-individual-tricks-result form-control input-sm dark-color-text" value="<%= individualTricksResult.toFixed(0) %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= tricksScore.toFixed(2) %>"/>
+			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= individualTricksScore.toFixed(2) %>"/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
-			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= jumpResult.toFixed(1) %>"/>
+			<input type="number" class="js-player-individual-jump-result form-control input-sm dark-color-text" value="<%= individualJumpResult.toFixed(1) %>"/>
 		</td>
 		<td class="col col-score">
-			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= jumpScore.toFixed(2) %>"/>
+			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= individualJumpScore.toFixed(2) %>"/>
 		</td>
 		<!--overall-->
 		<td class="col col-score col-after-divide">
-			<input type="number" class="form-control input-sm top-player-overall-score" value="<%= overallScore.toFixed(2) %>" disabled/>
+			<input type="number" class="form-control input-sm top-player-overall-score" value="<%= individualOverallScore.toFixed(2) %>" disabled/>
 		</td>
 	</script>
 </body>

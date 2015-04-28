@@ -3,10 +3,6 @@
 	padding: 0;
 }
 
-p {
-	color: #005500;
-}
-
 h3 {
 	margin: 10px 0 5px;
 }
@@ -173,15 +169,19 @@ body {
 	margin-bottom: 5px;
 }
 
-
-
 .top-players .col-team {
-	width: 18%;
+	width: 10%;
 }
 .top-players .col-name {
-	width: 24%;
+	width: 16%;
 }
-.top-players .col-slalom {
+.top-players .col-slalom-buoys {
+	width: 7%;
+}
+.top-players .col-slalom-slash {
+	width: 1%;
+}
+.top-players .col-slalom-track {
 	width: 10%;
 }
 .top-players .col-score,

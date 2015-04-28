@@ -72,7 +72,7 @@ $(function () {
 				this.setTeams(new App.Collection.Team(teamModelsArray));
 			}
 			delete data.teams;
-			this.trigger('teamsReset')
+			this.trigger('teamsReset');
 			return data;
 		},
 
@@ -166,26 +166,42 @@ $(function () {
 			};
 
 			var updateScoresForPlayer = function(player, competition) {
-				// slalom
-				var playerSlalomScore = getTopSlalomResult(player) == 0
-					? 0
-					: (player.getSlalomResult() * 1000) / getTopSlalomResult(player);
-				player.setSlalomScore(Math.round(playerSlalomScore * 100) / 100);
+				player.setSlalomScore(calculateSlalomScore(player, player.getSlalomResult()));
+				player.setIndividualSlalomScore(calculateSlalomScore(player, player.getIndividualSlalomResult()));
 
-				// tricks
-				var playerTricksScore = getTopTricksResult(player) == 0
-					? 0
-					: (player.getTricksResult() * 1000) / getTopTricksResult(player);
-				player.setTricksScore(Math.round(playerTricksScore * 100) / 100);
+				player.setTricksScore(calculateTricksScore(player, player.getTricksResult()));
+				player.setIndividualTricksScore(calculateTricksScore(player, player.getIndividualTricksResult()));
 
-				// jumps
-				var jumpDeduction = player.getGender() === 'M' ? competition.getJumpMenDeduction() : competition.getJumpWomenDeduction();
-				var playerJumpResultWithNegative = ((player.getJumpResult() - jumpDeduction) * 1000) / (getTopJumpResult(player) - jumpDeduction);
-				// A skiers overall score in jumping shall not be reduced below zero.
-				var playerJumpResult = (playerJumpResultWithNegative < 0 || _.isNaN(playerJumpResultWithNegative) || player.getJumpResult() == 0) ? 0 : playerJumpResultWithNegative;
-				player.setJumpScore(Math.round(playerJumpResult * 100) / 100);
+				player.setJumpScore(calculateJumpScore(player, player.getJumpResult(), competition));
+				player.setIndividualJumpScore(calculateJumpScore(player, player.getIndividualJumpResult(), competition));
 
 				player.setOverallScore(player.getSlalomScore() + player.getTricksScore() + player.getJumpScore());
+				player.setIndividualOverallScore(player.getIndividualSlalomScore() + player.getIndividualTricksScore() + player.getIndividualJumpScore());
+			};
+
+			// no getters of results in this method! pass to params
+			var calculateSlalomScore = function(player, playerSlalomResult) {
+				var playerSlalomScore = getTopSlalomResult(player) == 0
+					? 0
+					: (playerSlalomResult * 1000) / getTopSlalomResult(player);
+				return Math.round(playerSlalomScore * 100) / 100;
+			};
+
+			// no getters of results in this method! pass to params
+			var calculateTricksScore = function(player, playerTricksResult) {
+				var playerTricksScore = getTopTricksResult(player) == 0
+					? 0
+					: (playerTricksResult * 1000) / getTopTricksResult(player);
+				return Math.round(playerTricksScore * 100) / 100;
+			};
+
+			// no getters of results in this method! pass to params
+			var calculateJumpScore = function(player, playerJumpResult, competition) {
+				var jumpDeduction = player.getGender() === 'M' ? competition.getJumpMenDeduction() : competition.getJumpWomenDeduction();
+				var playerJumpScoreWithNegative = ((playerJumpResult - jumpDeduction) * 1000) / (getTopJumpResult(player) - jumpDeduction);
+				// A skiers overall score in jumping shall not be reduced below zero.
+				var playerJumpScore = (playerJumpScoreWithNegative < 0 || _.isNaN(playerJumpScoreWithNegative) || playerJumpResult == 0) ? 0 : playerJumpScoreWithNegative;
+				return Math.round(playerJumpScore * 100) / 100;
 			};
 
 			var updateScoresForTeam = function(team) {
@@ -230,7 +246,7 @@ $(function () {
 					}
 				});
 			});
-			var sortedGenderPlayers = _.sortBy(genderPlayers, function(player) { return - player.getOverallScore(); });
+			var sortedGenderPlayers = _.sortBy(genderPlayers, function(player) { return - player.getIndividualOverallScore(); });
 			return sortedGenderPlayers;
 		},
 

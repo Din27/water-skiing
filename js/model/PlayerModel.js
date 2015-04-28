@@ -1,14 +1,16 @@
 $(function () {
 	App.Model.Player = Backbone.Model.extend({
 		defaults: {
+			// general info
 			name: '',
 			gender: '',
 			teamName: '',
 			colorIndex: '',
 
+			// team results/scores
 			slalomTrackIndex: 0, // index of track from SlalomData.js
 			slalomBuoysIndex: 0, // index of buoys from SlalomData.js
-			slalomResult: 0.0,
+			slalomResult: 0.00,
 			slalomScore: 0.00,
 			isSlalomInTeamScore: false,
 
@@ -20,7 +22,21 @@ $(function () {
 			jumpScore: 0.00,
 			isJumpInTeamScore: false,
 
-			overallScore: 0.00
+			overallScore: 0.00,
+
+			// individual results/scores
+			individualSlalomTrackIndex: 0,
+			individualSlalomBuoysIndex: 0,
+			individualSlalomResult: 0.00,
+			individualSlalomScore: 0.00,
+
+			individualTricksResult: 0,
+			individualTricksScore: 0.00,
+
+			individualJumpResult: 0.0,
+			individualJumpScore: 0.00,
+
+			individualOverallScore: 0.00
 		},
 
 		initialize: function () {
@@ -50,10 +66,20 @@ $(function () {
 			if (typeof attrs.jumpResult !== 'number' || _.isNaN (attrs.jumpResult) || attrs.jumpResult < 0) {
 				return 'Результат трамплина должен быть положительным числом';
 			}
+			if (typeof attrs.individualTricksResult !== 'number' || _.isNaN (attrs.individualTricksResult) || attrs.individualTricksResult < 0) {
+				return 'Результат индивидуального фигурного катания должен быть положительным числом';
+			}
+			if (typeof attrs.individualJumpResult !== 'number' || _.isNaN (attrs.individualJumpResult) || attrs.individualJumpResult < 0) {
+				return 'Результат индивидуального трамплина должен быть положительным числом';
+			}
 		},
 
 		updateSlalomResult: function () {
 			return this.setSlalomResult(this.getSlalomTrackIndex() * 6 + window.SLALOM_BUOYS[this.getSlalomBuoysIndex()]);
+		},
+
+		updateIndividualSlalomResult: function () {
+			return this.setIndividualSlalomResult(this.getIndividualSlalomTrackIndex() * 6 + window.SLALOM_BUOYS[this.getIndividualSlalomBuoysIndex()]);
 		},
 
 		setName: function (name) {
@@ -93,7 +119,12 @@ $(function () {
 		},
 
 		setSlalomResult: function (slalomResult) {
-			return this.set({slalomResult: slalomResult}, {validate: true});
+			this.set({slalomResult: slalomResult}, {validate: true});
+			if (this.getSlalomResult() > this.getIndividualSlalomResult()) {
+				this.setIndividualSlalomBuoysIndex(this.getSlalomBuoysIndex());
+				this.setIndividualSlalomTrackIndex(this.getSlalomTrackIndex());
+			}
+			return this;
 		},
 
 		getSlalomResult: function () {
@@ -117,7 +148,11 @@ $(function () {
 		},
 
 		setTricksResult: function (tricksResult) {
-			return this.set({tricksResult: tricksResult}, {validate: true});
+			this.set({tricksResult: tricksResult}, {validate: true});
+			if (this.getTricksResult() > this.getIndividualTricksResult()) {
+				this.setIndividualTricksResult(this.getTricksResult());
+			}
+			return this;
 		},
 
 		getTricksResult: function () {
@@ -141,7 +176,11 @@ $(function () {
 		},
 
 		setJumpResult: function (jumpResult) {
-			return this.set({jumpResult: jumpResult}, {validate: true});
+			this.set({jumpResult: jumpResult}, {validate: true});
+			if (this.getJumpResult() > this.getIndividualJumpResult()) {
+				this.setIndividualJumpResult(this.getJumpResult());
+			}
+			return this;
 		},
 
 		getJumpResult: function () {
@@ -186,6 +225,83 @@ $(function () {
 
 		getColorIndex: function () {
 			return this.get('colorIndex');
+		},
+
+		setIndividualSlalomTrackIndex: function (individualSlalomTrackIndex) {
+			this.set({individualSlalomTrackIndex: individualSlalomTrackIndex}, {validate: true});
+			this.updateIndividualSlalomResult();
+			return this;
+		},
+
+		getIndividualSlalomTrackIndex: function () {
+			return this.get('individualSlalomTrackIndex');
+		},
+
+		setIndividualSlalomBuoysIndex: function (individualSlalomBuoysIndex) {
+			this.set({individualSlalomBuoysIndex: individualSlalomBuoysIndex}, {validate: true});
+			this.updateIndividualSlalomResult();
+			return this;
+		},
+
+		getIndividualSlalomBuoysIndex: function () {
+			return this.get('individualSlalomBuoysIndex');
+		},
+
+		setIndividualSlalomResult: function (individualSlalomResult) {
+			return this.set({individualSlalomResult: individualSlalomResult}, {validate: true});
+		},
+
+		getIndividualSlalomResult: function () {
+			return this.get('individualSlalomResult');
+		},
+
+		setIndividualSlalomScore: function (individualSlalomScore) {
+			return this.set({individualSlalomScore: individualSlalomScore}, {validate: true});
+		},
+
+		getIndividualSlalomScore: function () {
+			return this.get('individualSlalomScore');
+		},
+
+		setIndividualTricksResult: function (individualTricksResult) {
+			return this.set({individualTricksResult: individualTricksResult}, {validate: true});
+		},
+
+		getIndividualTricksResult: function () {
+			return this.get('individualTricksResult');
+		},
+
+		setIndividualTricksScore: function (individualTricksScore) {
+			return this.set({individualTricksScore: individualTricksScore}, {validate: true});
+		},
+
+		getIndividualTricksScore: function () {
+			return this.get('individualTricksScore');
+		},
+
+		setIndividualJumpResult: function (individualJumpResult) {
+			return this.set({individualJumpResult: individualJumpResult}, {validate: true});
+		},
+
+		getIndividualJumpResult: function () {
+			return this.get('individualJumpResult');
+		},
+
+		setIndividualJumpScore: function (individualJumpScore) {
+			return this.set({individualJumpScore: individualJumpScore}, {validate: true});
+		},
+
+		getIndividualJumpScore: function () {
+			return this.get('individualJumpScore');
+		},
+
+		setIndividualOverallScore: function (individualOverallScore) {
+			return this.set({individualOverallScore: individualOverallScore}, {validate: true});
+		},
+
+		getIndividualOverallScore: function () {
+			return this.get('individualOverallScore');
 		}
+
 	});
 });
