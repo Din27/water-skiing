@@ -1,6 +1,7 @@
 $(function () {
 	App.Model.Competition = Backbone.Model.extend({
 		defaults: {
+			id: 0,
 			name: '',
 			tabName: '',
 			slalomMenStartSpeed: 0,
