@@ -83,10 +83,10 @@
 							<input type="number" value="<%= worldRecordSlalomMen.toFixed(2) %>" class="form-control input-sm js-world-record-slalom-men"/>
 						</td>
 						<td class="col-records-result">
-							<input type="number" value="<%= worldRecordTricksMen.toFixed(2) %>" class="form-control input-sm js-world-record-tricks-men"/>
+							<input type="number" value="<%= worldRecordTricksMen.toFixed(0) %>" class="form-control input-sm js-world-record-tricks-men"/>
 						</td>
 						<td class="col-records-result">
-							<input type="number" value="<%= worldRecordJumpMen.toFixed(2) %>" class="form-control input-sm js-world-record-jump-men"/>
+							<input type="number" value="<%= worldRecordJumpMen.toFixed(1) %>" class="form-control input-sm js-world-record-jump-men"/>
 						</td>
 					</tr>
 					<tr>
@@ -97,10 +97,10 @@
 							<input type="number" value="<%= worldRecordSlalomWomen.toFixed(2) %>" class="form-control input-sm js-world-record-slalom-women"/>
 						</td>
 						<td>
-							<input type="number" value="<%= worldRecordTricksWomen.toFixed(2) %>" class="form-control input-sm js-world-record-tricks-women"/>
+							<input type="number" value="<%= worldRecordTricksWomen.toFixed(0) %>" class="form-control input-sm js-world-record-tricks-women"/>
 						</td>
 						<td>
-							<input type="number" value="<%= worldRecordJumpWomen.toFixed(2) %>" class="form-control input-sm js-world-record-jump-women"/>
+							<input type="number" value="<%= worldRecordJumpWomen.toFixed(1) %>" class="form-control input-sm js-world-record-jump-women"/>
 						</td>
 					</tr>
 				</tfoot>
@@ -207,14 +207,14 @@
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
-			<input type="number" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult %>"/>
+			<input type="number" class="player-tricks-result js-player-tricks-result form-control input-sm" value="<%= tricksResult.toFixed(0) %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="number" class="form-control input-sm <%= isTricksInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= tricksScore.toFixed(2) %>" disabled/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
-			<input type="number" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult %>"/>
+			<input type="number" class="player-jump-result js-player-jump-result form-control input-sm" value="<%= jumpResult.toFixed(1) %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="number" class="form-control input-sm <%= isJumpInTeamScore ? 'in-team-score' : 'not-in-team-score'%>" value="<%= jumpScore.toFixed(2) %>" disabled/>
@@ -280,14 +280,14 @@
 		</td>
 		<!--tricks-->
 		<td class="col col-tricks col-result col-after-divide">
-			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= tricksResult %>"/>
+			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= tricksResult.toFixed(0) %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= tricksScore.toFixed(2) %>"/>
 		</td>
 		<!--jump-->
 		<td class="col col-jump col-result col-after-divide">
-			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= jumpResult %>"/>
+			<input type="number" class="form-control input-sm dark-color-text" disabled value="<%= jumpResult.toFixed(1) %>"/>
 		</td>
 		<td class="col col-score">
 			<input type="number" class="form-control input-sm top-player-event-score dark-color-text" disabled value="<%= jumpScore.toFixed(2) %>"/>
