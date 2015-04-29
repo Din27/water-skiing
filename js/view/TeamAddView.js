@@ -4,7 +4,8 @@ $(function() {
 
 		//el: '.js-team-add',
 
-		initialize: function() {
+		initialize: function(options) {
+			_.extend(this, _.pick(options, "numberOfPlayers"));
 		},
 
 		events: {
@@ -21,7 +22,7 @@ $(function() {
 			var name = this.$el.find('.js-team-name').val();
 			var colorIndex = +this.$el.find('.js-team-color').val();
 			if (!$.trim(name)) name = "Команда";
-			var newTeam = new App.Model.Team({name: name, colorIndex: colorIndex}, {validate: true});
+			var newTeam = new App.Model.Team({name: name, colorIndex: colorIndex, numberOfPlayers: this.numberOfPlayers}, {validate: true});
 			this.collection.add(newTeam, {validate: true});
 		}
 	})

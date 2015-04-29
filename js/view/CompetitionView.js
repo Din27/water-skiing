@@ -2,7 +2,7 @@ $(function () {
 	App.View.Competition = Backbone.View.extend({
 		//todo remove events here, dispose
 		initialize: function () {
-			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams()});
+			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams(), numberOfPlayers: this.model.getNumberOfPlayers()});
 			this.teamCollectionView = new App.View.TeamCollection({collection: this.model.getTeams(), slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
 			this.topPlayersMenView = new App.View.TopPlayers({collection: this.model.getTeams(), gender: 'M', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
 			this.topPlayersWomenView = new App.View.TopPlayers({collection: this.model.getTeams(), gender: 'W', slalomMenTracks: this.model.getSlalomMenTracks(), slalomWomenTracks: this.model.getSlalomWomenTracks()});
@@ -37,7 +37,7 @@ $(function () {
 			this.$el.find('.js-teams-list').html(this.teamCollectionView.render().el);
 
 			this.addTeamView.remove();
-			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams()});
+			this.addTeamView = new App.View.AddTeam({collection: this.model.getTeams(), numberOfPlayers: this.model.getNumberOfPlayers()});
 			this.$el.find('.js-team-add-container').html(this.addTeamView.render().el);
 
 			this.topPlayersMenView.remove();

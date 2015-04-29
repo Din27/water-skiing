@@ -124,6 +124,14 @@ $(function () {
 			});
 		},
 
+		getNumberOfPlayers: function() {
+			if (this.getCompetitionType() === window.COMPETITION_TYPES.EUROPE) {
+				return 4;
+			} else {
+				return 6;
+			}
+		},
+
 		updateAllScoresAndSave: function() {
 			this.updateScores();
 			this.updateIndividualScores();

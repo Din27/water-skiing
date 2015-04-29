@@ -10,14 +10,18 @@ $(function () {
 		},
 
 		initialize: function (attrs) {
-			var defaultPlayers = new App.Collection.Player([
+			var defaultPlayersArray = [
 				{ name: "Лыжник 1", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
 				{ name: "Лыжник 2", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
 				{ name: "Лыжник 3", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
-				{ name: "Лыжник 4", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex }
-			]);
+				{ name: "Лыжник 4", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
+				{ name: "Лыжник 5", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex },
+				{ name: "Лыжник 6", gender: "M", teamName: attrs.name, colorIndex: attrs.colorIndex }
+			];
+
+			var defaultPlayersCollection = new App.Collection.Player(defaultPlayersArray.slice(0, attrs.numberOfPlayers));
 			if (!this.getPlayers()) {
-				this.setPlayers(defaultPlayers);
+				this.setPlayers(defaultPlayersCollection);
 			}
 
 			// invalid case
