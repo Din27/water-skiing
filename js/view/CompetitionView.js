@@ -57,13 +57,6 @@ $(function () {
 			return this;
 		},
 
-		remove: function () {
-			this.undelegateEvents();
-			this.$el.empty();
-			this.unbind();
-			return this;
-		},
-
 		editRecordSlalomMen: function () {
 			var recordSlalomMen = +$(this.el).find(this._selectors.recordSlalomMen).val();
 			this.model.setWorldRecordSlalomMen(recordSlalomMen);
@@ -100,8 +93,26 @@ $(function () {
 			this.render();
 		},
 
-		destroy: function () {
-			this.model.destroy();
+		remove: function () {
+			this.undelegateEvents();
+			this.stopListening();
+			this.addTeamView.remove();
+			this.teamCollectionView.remove();
+			this.topPlayersMenView.remove();
+			this.topPlayersWomenView.remove();
+			this.$el.empty();
+			this.unbind();
+			return this;
+		},
+
+		dispose: function (e) {
+			e.preventDefault();
+			this.model.dispose({success: _.bind(function(model, response) {
+				this.remove();
+				console.log('Команда удалена');
+			}, this), error: function() {
+				console.log('Команда не удалена');
+			}});
 		}
 	});
 });
