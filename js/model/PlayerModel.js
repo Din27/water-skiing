@@ -120,10 +120,8 @@ $(function () {
 
 		setSlalomResult: function (slalomResult) {
 			this.set({slalomResult: slalomResult}, {validate: true});
-			if (this.getSlalomResult() > this.getIndividualSlalomResult()) {
-				this.setIndividualSlalomBuoysIndex(this.getSlalomBuoysIndex());
-				this.setIndividualSlalomTrackIndex(this.getSlalomTrackIndex());
-			}
+			this.setIndividualSlalomBuoysIndex(this.getSlalomBuoysIndex());
+			this.setIndividualSlalomTrackIndex(this.getSlalomTrackIndex());
 			return this;
 		},
 
@@ -149,9 +147,7 @@ $(function () {
 
 		setTricksResult: function (tricksResult) {
 			this.set({tricksResult: tricksResult}, {validate: true});
-			if (this.getTricksResult() > this.getIndividualTricksResult()) {
-				this.setIndividualTricksResult(this.getTricksResult());
-			}
+			this.setIndividualTricksResult(this.getTricksResult());
 			return this;
 		},
 
@@ -177,9 +173,7 @@ $(function () {
 
 		setJumpResult: function (jumpResult) {
 			this.set({jumpResult: jumpResult}, {validate: true});
-			if (this.getJumpResult() > this.getIndividualJumpResult()) {
-				this.setIndividualJumpResult(this.getJumpResult());
-			}
+			this.setIndividualJumpResult(this.getJumpResult());
 			return this;
 		},
 
