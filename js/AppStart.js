@@ -1,7 +1,7 @@
 $(function () {
 	new App.Router();
 
-	window.APP_VERSION = 24;
+	window.APP_VERSION = 25;
 	window.APP_LOCAL_STORAGE_VERSION_KEY = 'water-skiing-version';
 
 	var localStorageAppVersion = +localStorage.getItem(APP_LOCAL_STORAGE_VERSION_KEY);
