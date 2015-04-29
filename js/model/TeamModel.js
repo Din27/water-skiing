@@ -39,10 +39,16 @@ $(function () {
 		},
 
 		bindPlayersEvents: function() {
-			// TODO what to do with double triggering?
-			this.getPlayers().on('change:name change:gender change:slalomResult change:tricksResult change:jumpResult change:individualSlalomResult change:individualTricksResult change:individualJumpResult', function(){
-				this.trigger('playersChanged');
+			this.getPlayers().on('change:name', function(){
+				this.trigger('playersInfoChanged');
 			}, this);
+			this.getPlayers().on('change:gender change:slalomResult change:tricksResult change:jumpResult', function(){
+				this.trigger('playersResultsChanged');
+			}, this);
+			this.getPlayers().on('change:individualSlalomResult change:individualTricksResult change:individualJumpResult', function(){
+				this.trigger('playersIndividualResultsChanged');
+			}, this);
+
 		},
 
 		setName: function (name) {

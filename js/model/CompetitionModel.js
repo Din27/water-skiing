@@ -14,12 +14,20 @@ $(function () {
 			jumpWomenDeduction: 0,
 			
 			competitionType: window.COMPETITION_TYPES.EUROPE,
+
 			worldRecordSlalomMen: 0,
 			worldRecordSlalomWomen: 0,
 			worldRecordTricksMen: 0,
 			worldRecordTricksWomen: 0,
 			worldRecordJumpMen: 0,
-			worldRecordJumpWomen: 0
+			worldRecordJumpWomen: 0,
+
+			topResultSlalomMen: 0,
+			topResultSlalomWomen: 0,
+			topResultTricksMen: 0,
+			topResultTricksWomen: 0,
+			topResultJumpMen: 0,
+			topResultJumpWomen: 0
 		},
 
 		initialize: function () {
@@ -31,7 +39,7 @@ $(function () {
 			this.setSlalomWomenTracks(this.generateSlalomTracks(this.getSlalomWomenStartSpeed(), this.getSlalomWomenTopSpeed()));
 
 			this.bindEvents();
-			_.defer(_.bind(this.updateScoresAndSave, this));
+			_.defer(_.bind(this.updateAllScoresAndSave, this));
 		},
 
 		generateSlalomTracks: function (startSpeed, topSpeed) {
@@ -86,11 +94,19 @@ $(function () {
 		},
 
 		bindEvents: function() {
-			this.getTeams().on('add change:colorIndex change:name destroy playersChanged', function() {
-				_.defer(_.bind(this.updateScoresAndSave, this));
+			this.getTeams().on('change:colorIndex change:name playersInfoChanged', function() {
+				_.defer(_.bind(this.saveCompetition, this));
 			}, this);
-			this.on('change', function() {
-				_.defer(_.bind(this.updateScoresAndSave, this));
+
+			this.getTeams().on('add destroy playersResultsChanged', function() {
+				_.defer(_.bind(this.updateAllScoresAndSave, this));
+			}, this);
+			this.on('change:worldRecordSlalomMen change:worldRecordSlalomWomen change:worldRecordTricksMen change:worldRecordTricksWomen change:worldRecordJumpMen change:worldRecordJumpWomen', function() {
+				_.defer(_.bind(this.updateAllScoresAndSave, this));
+			}, this);
+
+			this.getTeams().on('playersIndividualResultsChanged', function() {
+				_.defer(_.bind(this.updateIndividualScoresAndSave, this));
 			}, this);
 
 			// invalid case
@@ -99,142 +115,159 @@ $(function () {
 			});
 		},
 
-		updateScoresAndSave: function() {
+		updateAllScoresAndSave: function() {
 			this.updateScores();
+			this.updateIndividualScores();
+			this.saveCompetition();
+		},
+
+		updateIndividualScoresAndSave: function() {
+			this.updateIndividualScores();
+			this.saveCompetition();
+		},
+
+		saveCompetition: function() {
+			var name = this.getName();
 			this.save(null, {success: function() {
-				console.log('Соревнование сохранено');
+				console.log(name + ': Соревнование сохранено');
 			}, error: function() {
-				console.log('Соревнование не сохранено');
+				console.log(name + ': Соревнование не сохранено');
 			}});
 		},
 
+		getTopSlalomResult: function (player) {
+			return player.getGender() === 'M' ? this.getTopResultSlalomMen() : this.getTopResultSlalomWomen();
+		},
+		getTopTricksResult: function (player) {
+			return player.getGender() === 'M' ? this.getTopResultTricksMen() : this.getTopResultTricksWomen();
+		},
+		getTopJumpResult: function (player) {
+			return player.getGender() === 'M' ? this.getTopResultJumpMen() : this.getTopResultJumpWomen();
+		},
+
 		updateScores: function() {
-			var topResults = {
-				slalomMen: 0,
-				tricksMen: 0,
-				jumpMen: 0,
-				slalomWomen: 0,
-				tricksWomen: 0,
-				jumpWomen: 0
-			};
-
-			var getTopSlalomResult = function (player) {
-				return player.getGender() === 'M' ? topResults.slalomMen : topResults.slalomWomen;
-			};
-			var getTopTricksResult = function (player) {
-				return player.getGender() === 'M' ? topResults.tricksMen : topResults.tricksWomen;
-			};
-			var getTopJumpResult = function (player) {
-				return player.getGender() === 'M' ? topResults.jumpMen : topResults.jumpWomen;
-			};
-
-			var saveTopResults = function (competition) {
-				if (competition.getCompetitionType() === COMPETITION_TYPES.EUROPE) {
-					topResults.slalomMen = competition.getWorldRecordSlalomMen();
-					topResults.tricksMen = competition.getWorldRecordTricksMen();
-					topResults.jumpMen = competition.getWorldRecordJumpMen();
-					topResults.slalomWomen = competition.getWorldRecordSlalomWomen();
-					topResults.tricksWomen = competition.getWorldRecordTricksWomen();
-					topResults.jumpWomen = competition.getWorldRecordJumpWomen();
-				} else if (competition.getCompetitionType() === COMPETITION_TYPES.CABELSKI) {
-					competition.getTeams().each(function (team) {
-						team.getPlayers().each(function (player) {
-							var playerSlalomResult = player.getSlalomResult();
-							if (player.getGender() === 'M' && playerSlalomResult > topResults.slalomMen) topResults.slalomMen = playerSlalomResult;
-							if (player.getGender() === 'F' && playerSlalomResult > topResults.slalomWomen) topResults.slalomWomen = playerSlalomResult;
-
-							var playerTricksResult = player.getTricksResult();
-							if (player.getGender() === 'M' && playerTricksResult > topResults.tricksMen) topResults.tricksMen = playerTricksResult;
-							if (player.getGender() === 'F' && playerTricksResult > topResults.tricksWomen) topResults.tricksWomen = playerTricksResult;
-
-							var playerJumpResult = player.getJumpResult();
-							if (player.getGender() === 'M' && playerJumpResult > topResults.jumpMen) topResults.jumpMen = playerJumpResult;
-							if (player.getGender() === 'F' && playerJumpResult > topResults.jumpWomen) topResults.jumpWomen = playerJumpResult;
-						});
-					});
-				}
-			};
-
-			var updateScoresForPlayersAndTeams = function(competition) {
-				competition.getTeams().each(function(team) {
-					team.getPlayers().each(function(player) {
-						updateScoresForPlayer(player, competition);
-					});
-
-					updateScoresForTeam(team);
+			this.saveTopResults();
+			var competition = this;
+			this.getTeams().each(function(team) {
+				team.getPlayers().each(function(player) {
+					competition.updateScoresForPlayer(player);
 				});
-			};
 
-			var updateScoresForPlayer = function(player, competition) {
-				player.setSlalomScore(calculateSlalomScore(player, player.getSlalomResult()));
-				player.setIndividualSlalomScore(calculateSlalomScore(player, player.getIndividualSlalomResult()));
+				competition.updateScoresForTeam(team);
+			});
+			console.log(this.getName() + ': Командные скоры игроков и команд обновлены');
+		},
+		
+		saveTopResults: function () {
+			if (this.getCompetitionType() === COMPETITION_TYPES.EUROPE) {
+				this.setTopResultSlalomMen(this.getWorldRecordSlalomMen());
+				this.setTopResultSlalomWomen(this.getWorldRecordSlalomWomen());
+				this.setTopResultTricksMen(this.getWorldRecordTricksMen());
+				this.setTopResultTricksWomen(this.getWorldRecordTricksWomen());
+				this.setTopResultJumpMen(this.getWorldRecordJumpMen());
+				this.setTopResultJumpWomen(this.getWorldRecordJumpWomen());
+			} else if (this.getCompetitionType() === COMPETITION_TYPES.CABELSKI) {
+				this.setTopResultSlalomMen(0);
+				this.setTopResultSlalomWomen(0);
+				this.setTopResultTricksMen(0);
+				this.setTopResultTricksWomen(0);
+				this.setTopResultJumpMen(0);
+				this.setTopResultJumpWomen(0);
+				var competition = this;
+				this.getTeams().each(function (team) {
+					team.getPlayers().each(function (player) {
+						var playerSlalomResult = player.getSlalomResult();
+						if (player.getGender() === 'M' && playerSlalomResult > competition.getTopResultSlalomMen()) competition.setTopResultSlalomMen(playerSlalomResult);
+						if (player.getGender() === 'F' && playerSlalomResult > competition.getTopResultSlalomWomen()) competition.setTopResultSlalomWomen(playerSlalomResult);
 
-				player.setTricksScore(calculateTricksScore(player, player.getTricksResult()));
-				player.setIndividualTricksScore(calculateTricksScore(player, player.getIndividualTricksResult()));
+						var playerTricksResult = player.getTricksResult();
+						if (player.getGender() === 'M' && playerTricksResult > competition.getTopResultTricksMen()) competition.setTopResultTricksMen(playerTricksResult);
+						if (player.getGender() === 'F' && playerTricksResult > competition.getTopResultTricksWomen()) competition.setTopResultTricksWomen(playerTricksResult);
 
-				player.setJumpScore(calculateJumpScore(player, player.getJumpResult(), competition));
-				player.setIndividualJumpScore(calculateJumpScore(player, player.getIndividualJumpResult(), competition));
+						var playerJumpResult = player.getJumpResult();
+						if (player.getGender() === 'M' && playerJumpResult > competition.getTopResultJumpMen()) competition.setTopResultJumpMen(playerJumpResult);
+						if (player.getGender() === 'F' && playerJumpResult > competition.getTopResultJumpWomen()) competition.setTopResultJumpWomen(playerJumpResult);
+					});
+				});
+			}
+		},
 
-				player.setOverallScore(player.getSlalomScore() + player.getTricksScore() + player.getJumpScore());
-				player.setIndividualOverallScore(player.getIndividualSlalomScore() + player.getIndividualTricksScore() + player.getIndividualJumpScore());
-			};
+		updateScoresForPlayer: function(player) {
+			player.setSlalomScore(this.calculateSlalomScore(player, player.getSlalomResult()));
+			player.setTricksScore(this.calculateTricksScore(player, player.getTricksResult()));
+			player.setJumpScore(this.calculateJumpScore(player, player.getJumpResult()));
+			player.setOverallScore(player.getSlalomScore() + player.getTricksScore() + player.getJumpScore());
+		},
 
-			// no getters of results in this method! pass to params
-			var calculateSlalomScore = function(player, playerSlalomResult) {
-				var playerSlalomScore = getTopSlalomResult(player) == 0
-					? 0
-					: (playerSlalomResult * 1000) / getTopSlalomResult(player);
-				return Math.round(playerSlalomScore * 100) / 100;
-			};
+		updateIndividualScores: function() {
+			var competition = this;
+			this.getTeams().each(function(team) {
+				team.getPlayers().each(function(player) {
+					competition.updateIndividualScoresForPlayer(player);
+				});
+			});
+			console.log(this.getName() + ': Индивидуальные скоры обновлены');
+		},
 
-			// no getters of results in this method! pass to params
-			var calculateTricksScore = function(player, playerTricksResult) {
-				var playerTricksScore = getTopTricksResult(player) == 0
-					? 0
-					: (playerTricksResult * 1000) / getTopTricksResult(player);
-				return Math.round(playerTricksScore * 100) / 100;
-			};
+		updateIndividualScoresForPlayer: function(player) {
+			player.setIndividualSlalomScore(this.calculateSlalomScore(player, player.getIndividualSlalomResult()));
+			player.setIndividualTricksScore(this.calculateTricksScore(player, player.getIndividualTricksResult()));
+			player.setIndividualJumpScore(this.calculateJumpScore(player, player.getIndividualJumpResult()));
+			player.setIndividualOverallScore(player.getIndividualSlalomScore() + player.getIndividualTricksScore() + player.getIndividualJumpScore());
+		},
 
-			// no getters of results in this method! pass to params
-			var calculateJumpScore = function(player, playerJumpResult, competition) {
-				var jumpDeduction = player.getGender() === 'M' ? competition.getJumpMenDeduction() : competition.getJumpWomenDeduction();
-				var playerJumpScoreWithNegative = ((playerJumpResult - jumpDeduction) * 1000) / (getTopJumpResult(player) - jumpDeduction);
-				// A skiers overall score in jumping shall not be reduced below zero.
-				var playerJumpScore = (playerJumpScoreWithNegative < 0 || _.isNaN(playerJumpScoreWithNegative) || playerJumpResult == 0) ? 0 : playerJumpScoreWithNegative;
-				return Math.round(playerJumpScore * 100) / 100;
-			};
+		// no getters of results in this method! pass to params
+		calculateSlalomScore: function(player, playerSlalomResult) {
+			var playerSlalomScore = this.getTopSlalomResult(player) == 0
+				? 0
+				: (playerSlalomResult * 1000) / this.getTopSlalomResult(player);
+			return Math.round(playerSlalomScore * 100) / 100;
+		},
 
-			var updateScoresForTeam = function(team) {
-				// sorting by scores
-				var teamPlayersSlalomSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getSlalomScore(); });
-				var teamPlayersTricksSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getTricksScore(); });
-				var teamPlayersJumpSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getJumpScore(); });
+		// no getters of results in this method! pass to params
+		calculateTricksScore: function(player, playerTricksResult) {
+			var playerTricksScore = this.getTopTricksResult(player) == 0
+				? 0
+				: (playerTricksResult * 1000) / this.getTopTricksResult(player);
+			return Math.round(playerTricksScore * 100) / 100;
+		},
 
-				// finding scoring and not scoring players
-				var teamPlayersSlalomScoring = teamPlayersSlalomSorted.slice(0, 3);
-				var teamPlayersSlalomNotScoring = teamPlayersSlalomSorted.slice(3);
-				var teamPlayersTricksScoring = teamPlayersTricksSorted.slice(0, 3);
-				var teamPlayersTricksNotScoring = teamPlayersTricksSorted.slice(3);
-				var teamPlayersJumpScoring = teamPlayersJumpSorted.slice(0, 3);
-				var teamPlayersJumpNotScoring = teamPlayersJumpSorted.slice(3);
+		// no getters of results in this method! pass to params
+		calculateJumpScore: function(player, playerJumpResult) {
+			var jumpDeduction = player.getGender() === 'M' ? this.getJumpMenDeduction() : this.getJumpWomenDeduction();
+			var playerJumpScoreWithNegative = ((playerJumpResult - jumpDeduction) * 1000) / (this.getTopJumpResult(player) - jumpDeduction);
+			// A skiers overall score in jumping shall not be reduced below zero.
+			var playerJumpScore = (playerJumpScoreWithNegative < 0 || _.isNaN(playerJumpScoreWithNegative) || playerJumpResult == 0) ? 0 : playerJumpScoreWithNegative;
+			return Math.round(playerJumpScore * 100) / 100;
+		},
 
-				// setting info to players to light up scoring players on view
-				_.each(teamPlayersSlalomScoring, function(player) { player.setIsSlalomInTeamScore(true); });
-				_.each(teamPlayersSlalomNotScoring, function(player) { player.setIsSlalomInTeamScore(false); });
-				_.each(teamPlayersTricksScoring, function(player) { player.setIsTricksInTeamScore(true); });
-				_.each(teamPlayersTricksNotScoring, function(player) { player.setIsTricksInTeamScore(false); });
-				_.each(teamPlayersJumpScoring, function(player) { player.setIsJumpInTeamScore(true); });
-				_.each(teamPlayersJumpNotScoring, function(player) { player.setIsJumpInTeamScore(false); });
+		updateScoresForTeam: function(team) {
+			// sorting by scores
+			var teamPlayersSlalomSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getSlalomScore(); });
+			var teamPlayersTricksSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getTricksScore(); });
+			var teamPlayersJumpSorted = _.sortBy(team.getPlayers().models, function(player) { return - player.getJumpScore(); });
 
-				// setting scores to teams
-				team.setSlalomScore(_.reduce(teamPlayersSlalomScoring, function(sum, player){ return sum + player.getSlalomScore(); }, 0));
-				team.setTricksScore(_.reduce(teamPlayersTricksScoring, function(sum, player){ return sum + player.getTricksScore(); }, 0));
-				team.setJumpScore(_.reduce(teamPlayersJumpScoring, function(sum, player){ return sum + player.getJumpScore(); }, 0));
-				team.setOverallScore(team.getSlalomScore() + team.getTricksScore() + team.getJumpScore());
-			};
+			// finding scoring and not scoring players
+			var teamPlayersSlalomScoring = teamPlayersSlalomSorted.slice(0, 3);
+			var teamPlayersSlalomNotScoring = teamPlayersSlalomSorted.slice(3);
+			var teamPlayersTricksScoring = teamPlayersTricksSorted.slice(0, 3);
+			var teamPlayersTricksNotScoring = teamPlayersTricksSorted.slice(3);
+			var teamPlayersJumpScoring = teamPlayersJumpSorted.slice(0, 3);
+			var teamPlayersJumpNotScoring = teamPlayersJumpSorted.slice(3);
 
-			saveTopResults(this);
-			updateScoresForPlayersAndTeams(this);
+			// setting info to players to light up scoring players on view
+			_.each(teamPlayersSlalomScoring, function(player) { player.setIsSlalomInTeamScore(true); });
+			_.each(teamPlayersSlalomNotScoring, function(player) { player.setIsSlalomInTeamScore(false); });
+			_.each(teamPlayersTricksScoring, function(player) { player.setIsTricksInTeamScore(true); });
+			_.each(teamPlayersTricksNotScoring, function(player) { player.setIsTricksInTeamScore(false); });
+			_.each(teamPlayersJumpScoring, function(player) { player.setIsJumpInTeamScore(true); });
+			_.each(teamPlayersJumpNotScoring, function(player) { player.setIsJumpInTeamScore(false); });
+
+			// setting scores to teams
+			team.setSlalomScore(_.reduce(teamPlayersSlalomScoring, function(sum, player){ return sum + player.getSlalomScore(); }, 0));
+			team.setTricksScore(_.reduce(teamPlayersTricksScoring, function(sum, player){ return sum + player.getTricksScore(); }, 0));
+			team.setJumpScore(_.reduce(teamPlayersJumpScoring, function(sum, player){ return sum + player.getJumpScore(); }, 0));
+			team.setOverallScore(team.getSlalomScore() + team.getTricksScore() + team.getJumpScore());
 		},
 
 		getTopPlayers: function (gender) {
@@ -246,8 +279,7 @@ $(function () {
 					}
 				});
 			});
-			var sortedGenderPlayers = _.sortBy(genderPlayers, function(player) { return - player.getIndividualOverallScore(); });
-			return sortedGenderPlayers;
+			return _.sortBy(genderPlayers, function(player) { return - player.getIndividualOverallScore(); });
 		},
 
 		setName: function (name) {
@@ -394,6 +426,54 @@ $(function () {
 
 		getWorldRecordJumpWomen: function() {
 			return this.get('worldRecordJumpWomen');
+		},
+
+		setTopResultSlalomMen: function(topResultSlalomMen) {
+			return this.set({topResultSlalomMen: topResultSlalomMen});
+		},
+
+		getTopResultSlalomMen: function() {
+			return this.get('topResultSlalomMen');
+		},
+
+		setTopResultSlalomWomen: function(topResultSlalomWomen) {
+			return this.set({topResultSlalomWomen: topResultSlalomWomen});
+		},
+
+		getTopResultSlalomWomen: function() {
+			return this.get('topResultSlalomWomen');
+		},
+
+		setTopResultTricksMen: function(topResultTricksMen) {
+			return this.set({topResultTricksMen: topResultTricksMen});
+		},
+
+		getTopResultTricksMen: function() {
+			return this.get('topResultTricksMen');
+		},
+
+		setTopResultTricksWomen: function(topResultTricksWomen) {
+			return this.set({topResultTricksWomen: topResultTricksWomen});
+		},
+
+		getTopResultTricksWomen: function() {
+			return this.get('topResultTricksWomen');
+		},
+
+		setTopResultJumpMen: function(topResultJumpMen) {
+			return this.set({topResultJumpMen: topResultJumpMen});
+		},
+
+		getTopResultJumpMen: function() {
+			return this.get('topResultJumpMen');
+		},
+
+		setTopResultJumpWomen: function(topResultJumpWomen) {
+			return this.set({topResultJumpWomen: topResultJumpWomen});
+		},
+
+		getTopResultJumpWomen: function() {
+			return this.get('topResultJumpWomen');
 		}
 	});
 });
