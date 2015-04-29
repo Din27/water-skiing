@@ -1,16 +1,18 @@
 $(function () {
 	new App.Router();
 
-	window.APP_VERSION = 21;
+	window.APP_VERSION = 22;
 	window.APP_LOCAL_STORAGE_VERSION_KEY = 'water-skiing-version';
 
 	var localStorageAppVersion = +localStorage.getItem(APP_LOCAL_STORAGE_VERSION_KEY);
 
 	window.competitions = new App.Collection.Competition();
 	window.competitions.comparator = 'id';
-	if (localStorageAppVersion == window.APP_VERSION) {
-		window.competitions.fetch({sort: true});
-	}
+
+	// we need it in any case, otherwise competitions collection does not get saved from the first try
+	// this looks like backbone.localStorage bug (or feature, haha)
+	window.competitions.fetch({sort: true});
+
 	if (localStorageAppVersion != window.APP_VERSION || window.competitions.length < 7) {
 		var competition;
 		while (competition = window.competitions.first()) {
