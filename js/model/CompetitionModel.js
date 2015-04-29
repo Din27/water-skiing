@@ -102,18 +102,26 @@ $(function () {
 		},
 
 		bindEvents: function() {
+			// if colors or names are change, only save
 			this.getTeams().on('change:colorIndex change:name playersInfoChanged', function() {
 				_.defer(_.bind(this.saveCompetition, this));
 			}, this);
 
-			// TODO can be optimized now
-			this.getTeams().on('add destroy playersResultsChanged', function() {
+			// if team is added, or player results changed, update only team scores. another event will be triggered about individual results change
+			this.getTeams().on('add playersResultsChanged', function() {
+				_.defer(_.bind(this.updateScoresAndSave, this));
+			}, this);
+
+			// if team is destroyed, update all scores - team and individual too, because in Cabelski removing of team can remove best result and everything should be recalculated...
+			this.getTeams().on('destroy', function() {
 				_.defer(_.bind(this.updateAllScoresAndSave, this));
 			}, this);
+			// if world records changed in Europe, update everything
 			this.on('change:worldRecordSlalomMen change:worldRecordSlalomWomen change:worldRecordTricksMen change:worldRecordTricksWomen change:worldRecordJumpMen change:worldRecordJumpWomen', function() {
 				_.defer(_.bind(this.updateAllScoresAndSave, this));
 			}, this);
 
+			// if player individual results changed, update only individual scores
 			this.getTeams().on('playersIndividualResultsChanged', function() {
 				_.defer(_.bind(this.updateIndividualScoresAndSave, this));
 			}, this);
@@ -135,6 +143,11 @@ $(function () {
 		updateAllScoresAndSave: function() {
 			this.updateScores();
 			this.updateIndividualScores();
+			this.saveCompetition();
+		},
+
+		updateScoresAndSave: function() {
+			this.updateScores();
 			this.saveCompetition();
 		},
 
